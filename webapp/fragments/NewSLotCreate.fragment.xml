@@ -1,0 +1,90 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idslotcreationDialog"
+        title="ParkingSlot creation"
+        resizable="true"
+        draggable="true"
+        contentWidth="30%"
+    >
+        <beginButton>
+            <Button
+                id="idslotcreate"
+                text="Create"
+                type="Success"
+                press="onCreate"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="idslotcancel"
+                text="Cancel"
+                type="Negative"
+                press="onClears"
+            />
+        </endButton>
+        <form:SimpleForm
+            id="idparkingform"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false"
+        >
+            <Label id="idslotcreatingidlabel" text="Parking Slot Number"/>
+            <Input
+                id="idslotcreatingidval"
+                type="Text"
+                value=""
+            />
+            <Label id="idslotcreatinglengthlabel" text="delivery"/>
+            <Select
+                    id="inwards21"
+                    required="true"
+                    selectedKey="{Inbound}"
+                >
+                    <items>
+                        <core:Item
+                            id="iditeadms12"
+                            text=" "
+                            key=""
+                        />
+                        <core:Item
+                            id="_IDGenItems1121"
+                            text="Inbound"
+                            key="Inbound"
+                        />
+                        <core:Item
+                            id="_IDGenItems112"
+                            text="Outbound"
+                            key="Outbound"
+                        />
+                    </items>
+                </Select>
+             
+            <Label id="idslotcreatingavialablelabel" text="Status" />
+            <Input
+                id="idslotcreatingavialableval"
+                value="Available"
+                editable="false"
+            />
+        </form:SimpleForm>
+    </Dialog>
+</core:FragmentDefinition>
+
+
+
+
