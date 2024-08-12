@@ -1,0 +1,125 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Dialog
+        id="idprintparking"
+        title="Print Receipt"
+        resizable="true"
+        draggable="true"
+        contentWidth="50%"
+        contentHeight="60%"
+    >
+        <content>
+            <f:SimpleForm
+                id="idSimpleForm"
+                layout="ResponsiveGridLayout"
+                editable="false"
+                title="Parking Lot Assignment Form"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                emptySpanL="2"
+                emptySpanM="2"
+                columnsL="2"
+                columnsM="1"
+                width="100%"
+            >
+                <f:content>
+                    <Label
+                        id="ijhhjkwshnask"
+                        text="Barcode:"
+                    />
+                    <core:HTML id="barcodeContainer" />
+
+                    <Label
+                        text="Vehicle Number"
+                        id="labelprint1"
+                    />
+                    <Text
+                        text=""
+                        id="textprint11"
+                    />
+
+                    <Label
+                        text="Parking Lot Number"
+                        id="labelprint5"
+                    />
+                    <Text
+                        text=""
+                        id="textprint5"
+                    />
+
+                    <Label
+                        text="Driver Name"
+                        id="labelprint2"
+                    />
+                    <Text
+                        text=""
+                        id="textprint234"
+                    />
+
+                    <Label
+                        text="Driver Phone Number"
+                        id="labelprint3"
+                        class="bold-red-label"
+                    />
+                    <Text
+                        text=""
+                        id="textprint33"
+                    />
+
+                    <Label
+                        text="Delivery Type"
+                        id="labelprint4"
+                    />
+                    <Text
+                        text=""
+                        id="textprint443"
+                    />
+
+                    <Label
+                        text="Date"
+                        id="labelprintDate"
+                    />
+                    <Text
+                        text=""
+                        id="dfvtextprint1"
+                    />
+
+                    <Label
+                        text="Time"
+                        id="labelprintTime"
+                    />
+                    <Text
+                        text=""
+                        id="dfvtextprint13"
+                    />
+
+                    <Image
+                        id="idnbgfdfg"
+                        class="logoReceipt"
+                        src="./images/artihcus.png"  
+                        width="150px"
+                        height="auto"
+                        alt="Receipt Logo"
+                    />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <buttons>
+            <Button
+                id="createButton"
+                text="Print"
+                press="onprint121"
+            />
+            <Button
+                id="cancelButton"
+                text="Cancel"
+                press="closeReceiptDailog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

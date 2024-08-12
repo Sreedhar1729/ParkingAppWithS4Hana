@@ -27,34 +27,56 @@
                         icon="sap-icon://menu2"
                         press=".onCollapseExpandPress"
                     />
-
+                    <Image
+                        id="idimage1"
+                        width="auto"
+                        class="tt"
+                        height="50px"
+                        src="https://artihcus.com/assets/img/Artihcus-global-logo-1.png"
+                    />
                     <ToolbarSpacer id="idtoolspace" />
                     <Title
                         id="idlabel"
                         class="sample"
                         text="ParkingLotApplication"
                     />
+
                     <ToolbarSpacer id="idtoolspacer2" />
+
                     <Button
                         id="idnotification"
                         icon="sap-icon://bell"
                         press="onBell"
+                        text=""
                     >
                         <customData>
                             <BadgeCustomData
                                 id="_IDGenBadgeCustomData1"
                                 value="{/NOTIFICATIONSSet/$count}"
+                                visible="{= ${/NOTIFICATIONSSet/$count} > 0 }"
                             />
                         </customData>
                     </Button>
                     <ToolbarSeparator id="ikksjdsds" />
+                    <Button
+                        id="massp"
+                        icon="sap-icon://map-fill"
+                        press=" mapsload"
+                    />
                     <!-- <Button id="idtoogle"  text="Toggle Dark/Light Mode" press="onToggleModePress" /> -->
                     <Button
                         id="idlogout"
-                        text="Logout"
-                        type="Accept"
+                        text="Data Visulisation"
                         press="onCS"
+                        class="testingc"
                     />
+                    <Button
+                        id="dark-mode-toggle"
+                        press="onToggleDarkMode"
+                        icon="sap-icon://dark-mode"
+                    />
+
+                    <!-- <Button id="idbt1" text="SMS" press="onSms"/>  -->
                 </tnt:content>
             </tnt:ToolHeader>
         </tnt:header>
@@ -149,7 +171,7 @@
                                 id="idreservependingtable"
                                 mode="SingleSelect"
                                 alternateRowColors="true"
-                                items="{path:'/ReservedSlotsSet',filters:[{path:'Rstatus',operator:'EQ',value1:true}]}"
+                                items="{path:'/ReservedSlotsSet',filters:[{path:'Rstatus',operator:'EQ',value1:false}]}"
                             >
                                 <!-- adding header to the table -->
                                 <headerToolbar>
@@ -168,6 +190,17 @@
                                             press="onConfirm"
                                             text="Confirm"
                                             type="Success"
+                                        />
+                                        <Button
+                                            id="idrefres"
+                                            icon="sap-icon://refresh"
+                                            press="onRefresh"
+                                        />
+                                        <Button
+                                            id="idsorter"
+                                            icon="sap-icon://sort"
+                                            text="sort"
+                                            press="onSort1"
                                         />
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -196,6 +229,18 @@
                                             text="ReservationStatus"
                                         />
                                     </Column>
+                                    <Column id="idreserveVendor">
+                                        <Title
+                                            id="idreservevendortitle"
+                                            text="Vendor Details"
+                                        />
+                                    </Column>
+                                    <Column id="isjwef">
+                                        <Title
+                                            id="iskkwsdd"
+                                            text="Delivery"
+                                        />
+                                    </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem
@@ -218,6 +263,14 @@
                                                 id="idresparkingstatus"
                                                 text="{Rstatus}"
                                             />
+                                            <Text
+                                                id="idvendorvalue"
+                                                text="{Vendorname}"
+                                            />
+                                            <Text
+                                                id="idtrnas"
+                                                text="{Delivery}"
+                                            />
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -239,6 +292,7 @@
                                 items="{path:'/ASSIGNEDSLOTSSet',filters:[{path:'Outside',operator:'EQ',value1:true}]}"
                             >
                                 <!-- set the header and title -->
+                                <!-- set the header and title -->
                                 <headerToolbar>
                                     <OverflowToolbar
                                         id="overflowbuttonsforhistory"
@@ -249,6 +303,32 @@
                                         />
                                         <ToolbarSpacer
                                             id="idtoolbarspacerhistory"
+                                        />
+                                        <Button
+                                            id="idhtmlscr"
+                                            text="Table capture by html2canvas"
+                                            press="tablecapture"
+                                        />
+                                        <Button
+                                            id="Scrreenshot"
+                                            text="Screen capture by domtoimage"
+                                            press="screencapture"
+                                        />
+                                        <Button
+                                            id="scrreenpdf"
+                                            text="Download PDF"
+                                            press="downloadpdf12"
+                                        />
+                                        <SearchField
+                                            id="idsearchbar"
+                                            liveChange="onSearch"
+                                            width="20%"
+                                            placeholder="Search here"
+                                        />
+                                        <Button
+                                            id="idsort1"
+                                            text="sort"
+                                            press="onSort"
                                         />
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -284,6 +364,18 @@
                                             text="Delivery"
                                         />
                                     </Column>
+                                    <Column id="idparkingVendordetails">
+                                        <Title
+                                            id="idparkingvendordea"
+                                            text="Vendor Name"
+                                        />
+                                    </Column>
+                                    <Column id="iisd">
+                                        <Title
+                                            id="idinesward"
+                                            text="Slotno"
+                                        />
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -308,6 +400,14 @@
                                             <Text
                                                 id="idassignhisstatusval"
                                                 text="{Delivery}"
+                                            />
+                                            <Text
+                                                id="idparkingvendorvalue"
+                                                text="{Vendorname}"
+                                            />
+                                            <Text
+                                                id="idtextiward"
+                                                text="{Slotno}"
                                             />
                                         </cells>
                                     </ColumnListItem>
@@ -337,13 +437,67 @@
                                             text="Paking vehicles"
                                         />
                                         <ToolbarSpacer id="idtoolbarspacer11" />
+                                        <HBox
+                                            id="hduuiwsiwkhesjd"
+                                            class="sapUiSmallMargin"
+                                        >
+                                            <Button
+                                                id="idScannerButton"
+                                                icon="sap-icon://bar-code"
+                                                press="onScanner"
+                                            />
+                                            <Input
+                                                id="idMat"
+                                                value=""
+                                                placeholder="Scanned Barcode"
+                                                editable="false"
+                                            />
+
+                                            <Button
+                                                id="idkkscancel"
+                                                press="onSearching"
+                                                icon="sap-icon://search"
+                                            />
+                                            <Button
+                                                id="issserach"
+                                                press="onClearsinput"
+                                                type="Negative"
+                                                icon="sap-icon://clear-filter"
+                                            />
+                                        </HBox>
+
+                                        <SearchField
+                                            id="idsearchvalues"
+                                            width="20%"
+                                            liveChange="onSearchParking"
+                                            placeholder="Enter values here"
+                                        />
                                         <Button
                                             id="idsimple"
                                             type="Negative"
                                             text="Left"
                                             press="onLeft"
-                                            icon="sap-icon://delete"
-                                            iconFirst="false"
+                                        />
+                                        <Button
+                                            id="idsort2"
+                                            text="sort"
+                                            press="onSort"
+                                        />
+                                        <Button
+                                            id="pdf1"
+                                            icon="sap-icon://download"
+                                            press="downloadpdf1"
+                                        />
+                                        <Button
+                                            id="kkjsieed"
+                                            text="Edit"
+                                            press="onEditPress"
+                                        />
+                                        <Button
+                                            id="ijhhjs"
+                                            text="Cancel"
+                                            visible="false"
+                                            press="onCancelB"
                                         />
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -373,16 +527,23 @@
                                             text="Exit Date"
                                         />
                                     </Column> -->
+
+                                    <Column id="idassignparkingid">
+                                        <Title
+                                            id="idassignparkingidtitle"
+                                            text="PakingSlotNo"
+                                        />
+                                    </Column>
                                     <Column id="idassignstatus">
                                         <Title
                                             id="idassignstatustitle"
                                             text="Delivery"
                                         />
                                     </Column>
-                                    <Column id="idassignparkingid">
+                                    <Column id="idrvendorName">
                                         <Title
-                                            id="idassignparkingidtitle"
-                                            text="PakingSlotNo"
+                                            id="idpvendornametitle"
+                                            text="Vendor Name"
                                         />
                                     </Column>
                                 </columns>
@@ -406,13 +567,34 @@
                                                 id="idparkingexitDateval"
                                                 text="{exitDate}"
                                             /> -->
+                                            <VBox id="jjskas">
+                                                <Input
+                                                    id="idassignparkingslotvalue"
+                                                    value="{Slotno}"
+                                                    editable="false"
+                                                    visible="true"
+                                                />
+                                                <Select
+                                                    id="parkingLotSelect1"
+                                                    required="true"
+                                                    visible="false"
+                                                    editable="true"
+                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                                                >
+                                                    <t:Item
+                                                        id="_IDGenItem115"
+                                                        key="{Slotno}"
+                                                        text="{Slotno}"
+                                                    />
+                                                </Select>
+                                            </VBox>
                                             <Text
-                                                id="idassignstatusval"
+                                                id="idinboundinward"
                                                 text="{Delivery}"
                                             />
                                             <Text
-                                                id="idassignparkingslotvalue"
-                                                text="{Slotno}"
+                                                id="idparkingvendorde"
+                                                text="{Vendorname}"
                                             />
                                         </cells>
                                     </ColumnListItem>
@@ -436,6 +618,98 @@
                         height="100%"
                         vertical="true"
                     >
+                        <f:DynamicPageHeader id="_IDGenDynamicPageHeader1">
+                            <HBox
+                                id="_IDGenHBox1"
+                                alignContent="SpaceBetween"
+                                width="100vw"
+                            >
+                                <VBox
+                                    id="_IDGenVBox1"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="_IDGenLabel1"
+                                        text="PakingLot Number"
+                                    />
+                                    <MultiInput
+                                        id="_IDGenMultiInput1"
+                                        value=""
+                                    />
+                                </VBox>
+                                <VBox
+                                    id="_IDGenVBox3"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="_IDGenLabel3"
+                                        text="Status"
+                                    />
+                                    <Select
+                                        id="idavailablestausforselect"
+                                        selectedKey="{Status}"
+                                    >
+                                        <items>
+                                            <t:Item
+                                                id="idblank"
+                                                text=""
+                                                key="{  }"
+                                            />
+                                            <t:Item
+                                                id="iditem11"
+                                                text="Available"
+                                                key="Available"
+                                            />
+                                            <t:Item
+                                                id="iditem12"
+                                                text="Reserved"
+                                                key="Reserved"
+                                            />
+                                            <t:Item
+                                                id="iditem13"
+                                                text="Not Available"
+                                                key="Not Available"
+                                            />
+                                        </items>
+                                    </Select>
+                                </VBox>
+
+                                <VBox
+                                    id="idGoButton"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="idGoButtonLabel"
+                                        text=""
+                                    />
+                                    <Button
+                                        id="idGoButtonValue"
+                                        text="Go"
+                                        type="Emphasized"
+                                        press="onGoPress"
+                                    />
+                                </VBox>
+
+                                <VBox
+                                    id="idClearFilterButton"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="idClearFilterButtonLabel"
+                                        text=""
+                                    />
+                                    <Button
+                                        id="idClearFilterButtonValue"
+                                        text="Clear Filter"
+                                        type="Negative"
+                                        press="onClearFilterPress"
+                                    />
+                                </VBox>
+                            </HBox>
+
+                            <ToolbarSpacer id="tool" />
+                        </f:DynamicPageHeader>
+
                         <Table
                             id="idparkingslottable"
                             contextualWidth="Inherit"
@@ -448,7 +722,6 @@
                                 <OverflowToolbar id="idoverflow">
                                     <Title
                                         id="idtitle11"
-                                        textDirection="Inherit"
                                         text="ParkingLot"
                                         textAlign="Center"
                                     />
@@ -476,6 +749,11 @@
                                         id="idsort3"
                                         text="sort"
                                         press="onSort"
+                                    />
+                                    <Button
+                                        id="iddvisual"
+                                        text="Visualization"
+                                        press="showSlots"
                                     />
                                 </OverflowToolbar>
                             </headerToolbar>
@@ -583,6 +861,12 @@
                                             text="Clear"
                                             press="onUnassignPress"
                                         />
+                                        <Button
+                                            id="uioiuhbnkjn"
+                                            press="oOpenDial"
+                                            icon="sap-icon://print"
+                                            text="Print"
+                                        />
                                     </Toolbar>
                                 </form:toolbar>
                                 <Label
@@ -659,6 +943,75 @@
                     </ScrollContainer>
                     <!-- Reserve parking page in toolpage Layout with status Confirmed -->
                     <ScrollContainer id="root4">
+                        <f:DynamicPageHeader id="iddynamicpageheader">
+                            <HBox
+                                id="idhh"
+                                alignContent="SpaceBetween"
+                                width="100vw"
+                            >
+                                <!-- <layout:VerticalLayout id="idverti"> -->
+                                <VBox
+                                    id="idverti"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="iddylabeltruck"
+                                        text="Truck Number"
+                                    />
+                                    <MultiInput
+                                        id="iddytrucknumber"
+                                        value="{}"
+                                    />
+                                </VBox>
+                                <VBox
+                                    id="vetic"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="iddylabelslot"
+                                        text="parking slot"
+                                    />
+                                    <MultiInput
+                                        id="iddyslotnumber"
+                                        value="{}"
+                                    />
+                                </VBox>
+                                <VBox
+                                    id="idve"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label
+                                        id="idmuldriverlabel"
+                                        text="DriverName"
+                                    />
+                                    <MultiInput id="iddrivermul" />
+                                </VBox>
+                                <VBox
+                                    id="idfilbutton1"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label id="idfillabel" />
+                                    <Button
+                                        id="idfilgo"
+                                        text="Go"
+                                        type="Emphasized"
+                                        press="onGoFilter"
+                                    />
+                                </VBox>
+                                <VBox
+                                    id="idvboxclearv"
+                                    class="sapUiSmallMarginEnd"
+                                >
+                                    <Label id="idclearlabels" />
+                                    <Button
+                                        id="idclearvaluesd"
+                                        text="Clear"
+                                        press="onClearFilter"
+                                    />
+                                </VBox>
+                                <!-- </layout:VerticalLayout> -->
+                            </HBox>
+                        </f:DynamicPageHeader>
                         <Table
                             id="idReserveParkingtable"
                             contextualWidth="Inherit"
@@ -675,30 +1028,50 @@
                                     />
                                     <ToolbarSpacer id="_IDGenToolbarSpacer1" />
                                     <Button
+                                        id="pdf"
+                                        icon="sap-icon://download"
+                                        press="downloadpdf"
+                                    />
+                                    <Button
                                         id="_IDGenButton1"
                                         class="sapUiSmallMarginBeginEnd"
                                         type="Reject"
                                         icon="sap-icon://delete"
                                         text="Delete"
-                                        press="onDelete"
+                                        press="onDeletes1"
                                     />
                                     <Button
-                                        id="_IDGenButton2"
+                                        id="_IDGenButton211"
                                         class="sapUiSmallMarginBeginEnd"
                                         type="Accept"
                                         icon="sap-icon://add"
                                         text="Add"
                                         press="onAdd"
                                     />
-
                                     <Button
                                         id="_IDGenButton3"
                                         class="sapUiSmallMarginBeginEnd"
                                         type="Accept"
-                                        icon="sap-icon://edit"
-                                        text="Edit"
+                                        text="Assign"
                                         enabled="true"
-                                        press="onEdit"
+                                        press="onAddLoan"
+                                    />
+                                    <Button
+                                        id="jdjhajkjajkjhgh"
+                                        icon="sap-icon://decline"
+                                        press="onCLS"
+                                        visible="false"
+                                    />
+                                    <Button
+                                        id="idsort4"
+                                        text="sort"
+                                        press="onSort"
+                                    />
+                                    <Button
+                                        id="idactionbuttons12"
+                                        press="editbutton"
+                                        type="Accept"
+                                        text="Edit"
                                     />
                                 </OverflowToolbar>
                             </headerToolbar>

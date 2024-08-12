@@ -1,0 +1,90 @@
+<mvc:View
+    controllerName="com.app.parkapplication.controller.Slot"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <VBox
+        id="pageContainer"
+        class="pageContainer"
+        alignItems="Center">
+
+        <Title
+            id="page2idtext1"
+            text="Parking Lot Visualization"
+            level="H1"
+            class="sapUiSmallMargin"/>
+
+        <HBox
+            id="idpagehbox"
+            class="sapUiSmallMargin"
+            alignItems="Center"
+            justifyContent="Center">
+            
+            <VBox
+                id="idboxikm"
+                alignItems="Center"
+                justifyContent="Center"
+                class="greenBackground"
+                width="20px"
+                height="20px"/>
+                
+            <Text
+                id="iduhtextbox"
+                text=": Available"
+                class="sapUiSmallMarginBeginEnd"/>
+                
+            <Text
+                id="availableCount"
+                text="(0)"
+                class="sapUiSmallMarginBeginEnd"/>
+                
+            <VBox
+                id="idboxReserved"
+                alignItems="Center"
+                justifyContent="Center"
+                class="orangeBackground"
+                width="20px"
+                height="20px"/>
+                
+            <Text
+                id="idReservedText"
+                text=": Reserved"
+                class="sapUiSmallMarginBeginEnd"/>
+                
+            <Text
+                id="reservedCount"
+                text="(0)"
+                class="sapUiSmallMarginBeginEnd"/>
+                
+            <VBox
+                id="idmnvboxid"
+                alignItems="Center"
+                justifyContent="Center"
+                class="redBackground"
+                width="20px"
+                height="20px"/>
+                
+            <Text
+                id="idboxyhgt"
+                text=": Not Available"
+                class="sapUiSmallMarginBeginEnd"/>
+                
+            <Text
+                id="unavailableCount"
+                text="(0)"
+                class="sapUiSmallMarginBeginEnd"/>
+        </HBox>
+
+        <VBox
+            id="iddatavisuvalization"
+            class="visualizationContainer"
+            alignItems="Center">
+            
+            <HBox
+                id="parkingLotContainer"
+                class="parkingLotContainer"/>
+                
+        </VBox>
+    </VBox>
+</mvc:View>

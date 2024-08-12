@@ -1,0 +1,209 @@
+<mvc:View
+    controllerName="com.app.parkiapplication.controller.Chart"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:suite="sap.suite.ui.commons"
+>
+    <Page
+        id="_IDGenPage1"
+        title="ParkingLot Charts"
+    >
+        <headerContent />
+        <content>
+            <!-- <VBox id="_IDGenVBox2" class="sapUiSmallMargin">
+                        <UploadCollection
+                            id="uploadCollection"
+                            items="{/uploadedImages}"
+                            mode="SingleSelectMaster"
+                            change="onFileUpload"
+                        >
+                            <items>
+                                <UploadCollectionItem id="_IDGenUploadCollectionItem1" documentId="{name}" fileName="{name}" mimeType="image/*"/>
+                            </items>
+                        </UploadCollection>
+                        <TextArea id="textArea" rows="10" width="100%" editable="false"/>
+                    </VBox> -->
+            <VBox id="_IDGenVBox1">
+                <suite:ChartContainer
+                    id="chartContainer"
+                    showFullScreen="true"
+                    showZoom="false"
+                    title="ParkingLot-Report"
+                >
+                    <suite:ChartContainerContent
+                        id="_IDGenChartContainerContent1"
+                    >
+                        <suite:content>
+                            <viz:VizFrame
+                                id="idpiechart"
+                                width="100%"
+                                vizType="pie"
+                                uiConfig="{applicationSet:'fiori'}"
+                                vizProperties="{ plotArea: { dataLabel: { visible: true }, title: { text: 'Flavor-Sales' } } }"
+                                selectData="myOnClickHandler"
+                                renderComplete="handleRenderComplete"
+                                dataset="{ path: 'ParkingLotModel>/Items' }"
+                            >
+                                <viz:dataset>
+                                    <viz.data:FlattenedDataset
+                                        id="flattenData"
+                                        data="{ path: 'ParkingLotModel>/Items' }"
+                                    >
+                                        <viz.data:dimensions>
+                                            <viz.data:DimensionDefinition
+                                                id="_IDGenDimensionDefinition1"
+                                                name="Status"
+                                                value="{ParkingLotModel>Status}"
+                                            />
+                                        </viz.data:dimensions>
+                                        <viz.data:measures>
+                                            <viz.data:MeasureDefinition
+                                                id="_IDGenMeasureDefinition1"
+                                                name="Count"
+                                                value="{ParkingLotModel>Count}"
+                                            />
+                                        </viz.data:measures>
+                                    </viz.data:FlattenedDataset>
+                                </viz:dataset>
+
+                                <viz:feeds>
+                                    <viz.feeds:FeedItem
+                                        id="_IDGenFeedItem1"
+                                        uid="size"
+                                        type="Measure"
+                                        values="Count"
+                                    />
+                                    <viz.feeds:FeedItem
+                                        id="_IDGenFeedItem2"
+                                        uid="color"
+                                        type="Dimension"
+                                        values="Status"
+                                    />
+                                </viz:feeds>
+                            </viz:VizFrame>
+                        </suite:content>
+                    </suite:ChartContainerContent>
+                </suite:ChartContainer>
+
+                <suite:ChartContainer id="chartContainer123">
+                    <suite:content>
+                        <suite:ChartContainerContent
+                            id="chartContainerContent333"
+                        >
+                            <suite:content>
+                                <viz:VizFrame
+                                    id="idBarChart"
+                                    width="auto"
+                                    height="600px"
+                                    vizType="column"
+                                    uiConfig="{applicationSet:'fiori'}"
+                                    vizProperties="{
+        plotArea: {
+            dataLabel: { visible: true },
+            colorPalette: ['rgb(53, 72, 128)', 'rgb(201, 47, 109)', 'rgb(58, 173, 129)']
+        },
+        title: { text: 'Entries by Date and Hour' },
+        valueAxis: {
+            title: {
+                visible: true,
+                text: 'Count'
+            },
+            label: {
+                formatString: '#,##0'
+            },
+            interval: {
+                value: 5
+            }
+        },
+        categoryAxis: {
+            title: {
+                visible: true,
+                text: 'Date'
+            }
+        }
+    }"
+                                    selectData="onSelectData"
+                                    renderComplete="handleRenderComplete"
+                                >
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset
+                                            id="flattenData0"
+                                            data="{HistoryModel>/Items}"
+                                        >
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition
+                                                    id="_IDGenDimensionDefinition2"
+                                                    name="Date"
+                                                    value="{HistoryModel>date}"
+                                                />
+                                                <viz.data:DimensionDefinition
+                                                    id="_IDGenDimensionDefinition3"
+                                                    name="Time Slot"
+                                                    value="{HistoryModel>timeSlot}"
+                                                />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition
+                                                    id="_IDGenMeasureDefinition2"
+                                                    name="Inward Count"
+                                                    value="{HistoryModel>inwardCount}"
+                                                />
+                                                <viz.data:MeasureDefinition
+                                                    id="_IDGenMeasureDefinition3"
+                                                    name="Outward Count"
+                                                    value="{HistoryModel>outwardCount}"
+                                                />
+                                                <viz.data:MeasureDefinition
+                                                    id="_IDGenMeasureDefinition4"
+                                                    name="Total Entries"
+                                                    value="{HistoryModel>totalEntries}"
+                                                />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem
+                                            id="_IDGenFeedItem3"
+                                            uid="valueAxis"
+                                            type="Measure"
+                                            values="Inward Count"
+                                        />
+                                        <viz.feeds:FeedItem
+                                            id="_IDGenFeedItem4"
+                                            uid="valueAxis"
+                                            type="Measure"
+                                            values="Outward Count"
+                                        />
+                                        <viz.feeds:FeedItem
+                                            id="_IDGenFeedItem5"
+                                            uid="valueAxis"
+                                            type="Measure"
+                                            values="Total Entries"
+                                        />
+                                        <viz.feeds:FeedItem
+                                            id="_IDGenFeedItem7"
+                                            uid="categoryAxis"
+                                            type="Dimension"
+                                            values="Date"
+                                        />
+                                        <viz.feeds:FeedItem
+                                            id="_IDGenFeedItem8"
+                                            uid="categoryAxis"
+                                            type="Dimension"
+                                            values="Time Slot"
+                                        />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </suite:content>
+                        </suite:ChartContainerContent>
+                    </suite:content>
+                </suite:ChartContainer>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

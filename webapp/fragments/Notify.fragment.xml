@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:Notifications="sap.ui.vk.Notifications"
+    xmlns:l="sap.ui.layout"
+>
+    <m:Popover
+        id="myPopover"
+        title="Reservation Request Notifications"
+        class="oooo   customPopoverContent"
+        placement="PreferredLeftOrFlip"
+    
+       
+    >
+        <m:beginButton>
+            <m:Button
+                id="okks"
+                press="onnotifyClose"
+                text="Close"
+            />
+        </m:beginButton>
+        <!-- <m:NotificationList
+            id="_IDGenNotificationList1"
+            items="{path:'/Notifications',parameters:{$count:true}}"
+        > -->
+            <layoutData>
+                <FlexItemData
+                    id="_IDGenFlexItemData1"
+                    maxWidth="800px"
+                    maxHeight="100px"
+                />
+            </layoutData>
+            <m:NotificationListGroup id="idnof"
+            title="Reservation Request::"
+              showCloseButton="false"
+                close="onItemClose"
+                items="{path:'/NOTIFICATIONSSet',templateShareable:true, parameters:{ $count : true}}"
+                press="onListItemPress"
+            
+            >
+            <m:NotificationListItem
+                id="notificationssid"
+                title="{Vendorname}"
+                showCloseButton="true"
+                close=".onItemClose"
+            >
+                <!-- <buttons>
+                    <Button
+                        id="idnotifyaccept"
+                        icon="sap-icon://accept"
+                        text="Accept"
+                        press="onAcceptPress"
+                    />
+                </buttons> -->
+                <!-- <buttons>
+                    <Button
+                        id="idnotifyreject"
+                        icon="sap-icon://decline"
+                        text="Reject"
+                        type="Reject"
+                        press="onCancleIssue"
+                    />
+                </buttons> -->
+            </m:NotificationListItem>
+            </m:NotificationListGroup>
+        <!-- </m:NotificationList> -->
+    </m:Popover>
+</core:FragmentDefinition>
+<!--  items="{path: '/IssueBooks', parameters:{ $count : true}}" -->

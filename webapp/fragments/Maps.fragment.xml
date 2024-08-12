@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Dialog id="oskk" class="fullScreenDialog" 
+        >
+        <VBox id="kokjnkssi" class="fullScreenVBox">
+            <core:HTML id="mapHtml"/>
+        </VBox>
+        <Button id="jijksj" text="Close" press="onCloseDialog44"/>
+    </Dialog>
+</core:FragmentDefinition>
