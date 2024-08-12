@@ -21,9 +21,9 @@ sap.ui.define([
             oModel.read("/PARKINGSLOTSSet", {
                 success: function(oData) {
                     var aItems = oData.results;
-                    var NotavailableCount = aItems.filter(item => item.avialable === "Not Available").length;
-                    var AvailableCount = aItems.filter(item => item.avialable === "Available").length;
-                    var reserveCount = aItems.filter(item => item.avialable === "Reserved").length;
+                    var NotavailableCount = aItems.filter(item => item.Status === "Not Available").length;
+                    var AvailableCount = aItems.filter(item => item.Status === "Available").length;
+                    var reserveCount = aItems.filter(item => item.Status === "Reserved").length;
 
                     var aChartData = {
                         Items: [{

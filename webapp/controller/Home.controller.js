@@ -149,6 +149,13 @@ sap.ui.define([
                         }
                     });
                 });
+            },
+            onCS: async function () {
+                this.getOwnerComponent().getRouter().navTo("Routechart");
+            },
+            showSlots: function () {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("RouteLot");
             }
         });
     });

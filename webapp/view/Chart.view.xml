@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="com.app.parkiapplication.controller.Chart"
+    controllerName="com.app.parkapplication.controller.Chart"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
