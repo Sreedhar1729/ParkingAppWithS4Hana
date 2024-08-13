@@ -60,8 +60,10 @@
                     <ToolbarSeparator id="ikksjdsds" />
                     <Button
                         id="massp"
+                        text="Maps"
                         icon="sap-icon://map-fill"
                         press=" mapsload"
+                        class="btcol"
                     />
                     <!-- <Button id="idtoogle"  text="Toggle Dark/Light Mode" press="onToggleModePress" /> -->
                     <Button
@@ -161,15 +163,16 @@
                     <!-- Reservations Table with Pending Status -->
                     <ScrollContainer
                         id="reservationpending"
-                        horizontal="false"
+                       horizontal="false"
                         vertical="true"
-                        height="400px"
+                        height="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="idreservependingvbox">
                             <Table
                                 id="idreservependingtable"
                                 mode="SingleSelect"
+                                class="setcolor2"
                                 alternateRowColors="true"
                                 items="{path:'/ReservedSlotsSet',filters:[{path:'Rstatus',operator:'EQ',value1:false}]}"
                             >
@@ -760,7 +763,7 @@
                             <columns>
                                 <Column
                                     id="idparkingveh_id"
-                                    styleClass="cl"
+                                    
                                 >
                                     <Title
                                         id="parkingveh_text"
@@ -875,6 +878,7 @@
                                 />
                                 <Input
                                     id="input1"
+                                    liveChange=" TruckLiveChange"
                                     value="{}"
                                 />
 
@@ -885,6 +889,7 @@
                                 <Input
                                     id="idvalue7"
                                     value="{}"
+                                    liveChange="DriverNameChange"
                                 />
                                 <Label
                                     id="idlabel8"
@@ -893,6 +898,7 @@
                                 <Input
                                     id="idvalue8"
                                     value="{}"
+                                    liveChange="onMobileVal"
                                 />
                                 <Label
                                     id="label5"
@@ -901,6 +907,7 @@
                                 <Input
                                     id="input5"
                                     value="{}"
+                                    liveChange="DriverNameChange"
                                 />
                                 <Label
                                     id="label6"
@@ -909,6 +916,7 @@
                                 <Input
                                     id="input6"
                                     value="{}"
+                                    liveChange="onMobileVal"
                                 />
 
                                 <Label
@@ -942,7 +950,13 @@
                         </VBox>
                     </ScrollContainer>
                     <!-- Reserve parking page in toolpage Layout with status Confirmed -->
-                    <ScrollContainer id="root4">
+                    <ScrollContainer id="root4" 
+                    width="100%"
+                     horizontal="false"
+                        vertical="true"
+                        height="100%"
+                        class="sapUiContentPadding"
+                    >
                         <f:DynamicPageHeader id="iddynamicpageheader">
                             <HBox
                                 id="idhh"
@@ -1016,7 +1030,7 @@
                             id="idReserveParkingtable"
                             contextualWidth="Inherit"
                             alternateRowColors="true"
-                            items="{path:'/ReservedSlotsSet',filters:[{path:'Rstatus',operator:'EQ',value1:false}]}"
+                            items="{path:'/ReservedSlotsSet',filters:[{path:'Rstatus',operator:'EQ',value1:true}]}"
                             mode="MultiSelect"
                         >
                             <headerToolbar>
@@ -1103,7 +1117,7 @@
                                 <Column id="idParkingLot_ID">
                                     <Title
                                         id="parkinglotid"
-                                        text="PakingSlotID"
+                                        text="PakingSlot"
                                     />
                                 </Column>
                                 <Column id="idConfDate">
@@ -1112,12 +1126,7 @@
                                         text="ConfirmDate"
                                     />
                                 </Column>
-                                <Column id="idactions">
-                                    <Title
-                                        id="idactiontitle"
-                                        text="Actions"
-                                    />
-                                </Column>
+                                 
                             </columns>
 
                             <!-- items -->
@@ -1143,21 +1152,32 @@
                                             id="ReservedParkingstatus"
                                             text="{Vendorname}"
                                         />
-                                        <Input
-                                            id="ReservedParkingParkingLot"
-                                            value="{Slotno}"
-                                            editable="false"
-                                        />
+                                        <VBox id="osks">
+                                            <Input
+                                                id="ReservedParkingParkingLot"
+                                                value="{Slotno}"
+                                                editable="false"
+                                                visible="true"
+                                            />
+                                            <Select
+                                                id="parkingLotSelect1js"
+                                                required="true"
+                                                visible="false"
+                                                editable="true"
+                                                items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                                            >
+                                                <t:Item
+                                                    id="_IDGenItem11512"
+                                                    key="{Slotno}"
+                                                    text="{Slotno}"
+                                                />
+                                            </Select>
+                                        </VBox>
                                         <Text
                                             id="ReservedParkingConfDate"
                                             text="{Rcdate}"
                                         />
-                                        <Button
-                                            id="idactionbuttons"
-                                            press="editbutton"
-                                            type="Accept"
-                                            text="edit"
-                                        />
+                                         
                                     </cells>
                                 </ColumnListItem>
                             </items>

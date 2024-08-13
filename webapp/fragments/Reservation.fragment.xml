@@ -12,7 +12,7 @@
     >
         <beginButton>
             <Button
-                id="idCreateButtonnew"
+                id="idCreateButtonnew8"
                 text="Create"
                 press="onCreateReserveDialog"
                 type="Success"
@@ -20,7 +20,7 @@
         </beginButton>
         <endButton>
             <Button
-                id="idCancelButtonnew"
+                id="idCancelButtonnew12"
                 text="Cancel"
                 press="onCloseDialog"
                 type="Negative"
@@ -119,8 +119,8 @@
                 >
                     <core:Item
                         id="_IDGenItem51"
-                        key="{id}"
-                        text="{id}"
+                        key="{Slotno}"
+                        text="{Slotno}"
                     />
                 </Select>
             </form:SimpleForm>
