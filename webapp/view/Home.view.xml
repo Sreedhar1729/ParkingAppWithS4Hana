@@ -11,9 +11,12 @@
     xmlns:l="sap.ui.layout"
     xmlns:core="sap.ui.core"
     xmlns:simple="sap.gantt.simple"
+    height="100%"
+    width="100%"
 >
     <tnt:ToolPage
         id="app"
+        
         class="sa"
     >
         <tnt:header>
@@ -166,6 +169,7 @@
                        horizontal="false"
                         vertical="true"
                         height="100%"
+                        width="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="idreservependingvbox">
@@ -286,6 +290,7 @@
                         horizontal="false"
                         vertical="true"
                         height="100%"
+                         width="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="ParkingHistory">
@@ -424,6 +429,7 @@
                         horizontal="false"
                         vertical="true"
                         height="100%"
+                         width="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="idprkingveh">
@@ -606,7 +612,8 @@
                         </VBox>
                     </ScrollContainer>
                     <!-- Home Page It Displays Image -->
-                    <ScrollContainer id="root2">
+                    <ScrollContainer id="root2"  width="100%">
+                    
                         <Image
                             id="idimage"
                             width="100%"
@@ -616,8 +623,10 @@
                     <!-- ParkingSlots Table  Page -->
                     <ScrollContainer
                         id="root3"
+                        
                         class="temp"
                         horizontal="false"
+                         width="100%"
                         height="100%"
                         vertical="true"
                     >
@@ -819,6 +828,7 @@
                     <ScrollContainer
                         id="idparkingassign"
                         class="sss"
+                         width="100%"
                         vertical="true"
                         height="100%"
                     >

@@ -549,14 +549,14 @@ sap.ui.define([
                             oModel.refresh(true);
                             that.byId("idparkingslottable").getBinding("items").refresh(true);
 
-                            that.getView().byId("parkingLotSelect").getBinding("items").refresh();
+                            that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
                             // Update ParkignVeh to mark vehicle as unassigned
-                            oModel.update("/ASSIGNEDSLOTSSet(" + osel.Assignedno + ")", leftModel.getData(), {
+                            oModel.update("/ASSIGNEDSLOTSSet('" + osel.Assignedno + "')", leftModel.getData(), {
                                 success: function () {
                                     that.byId("idParkingvehiclestable").getBinding("items").refresh(); // Refresh table binding
                                     that.byId("idparkingslottable").getBinding("items").refresh(true);
 
-                                    that.getView().byId("parkingLotSelect").getBinding("items").refresh();
+                                    that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
                                     sap.m.MessageToast.show("Vehicle left from the parking area.");
                                     oModel.refresh(true);
                                     // Speak message
@@ -774,7 +774,6 @@ sap.ui.define([
                 var oParkingLotId = this.getView().byId("_IDGenComboBox2").getSelectedKey();
                 const formattedTime = this.getCurrentTime();
                 const formattedDate = this.formatDateToShort(new Date());
-            
                 // Function to get current time in hh:mm:ss
                 function getCurrentTime() {
                     const now = new Date();
@@ -784,118 +783,158 @@ sap.ui.define([
                     const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
                     return `${hours}:${minutes}:${seconds}.${milliseconds}`;
                 }
-            
-                // Payload for creating ParkingVeh entity
+                // const formattedTime = getCurrentTime();
+                // Payload for creating ParkignVeh entity
                 if (oTruckNo === '' || oDriverName === '' || oMobile === '' || oVendor === '' || oinbound === '' || oParkingLotId === '') {
-                    sap.m.MessageBox.error("Please enter all required fields!");
-                    return;
+                    sap.m.MessageBox.error("Please enter all required fields!!!!!");
                 }
-            
-                const opayload = {
-                    Truckno: oTruckNo,
-                    Drivername: oDriverName,
-                    Drivermobile: oMobile,
-                    Slotno: oParkingLotId,
-                    Endate: formattedDate,
-                    Entime: formattedTime,
-                    Exdate: "",
-                    Extime: "",
-                    Vendorname: oVendor,
-                    Delivery: oinbound,
-                    Inside: true,
-                    Outside: false
-                };
-                
-                const oModel = this.getView().getModel();
+
+                else {
+                    const opayload = {
+                        Truckno: oTruckNo,
+                        Drivername: oDriverName,
+                        Drivermobile: oMobile,
+                        Slotno: oParkingLotId,
+                        Endate: formattedDate,
+                        Entime: formattedTime,
+                        Exdate: "",
+                        Extime: "",
+                        Vendorname: oVendor,
+                        Delivery: oinbound,
+                        Inside: true,
+                        Outside: false
+                    };
+                    const oModel = this.getView().getModel();
                 const ofilter1 = new sap.ui.model.Filter("Truckno", sap.ui.model.FilterOperator.EQ, oTruckNo);
                 const ofilter2 = new sap.ui.model.Filter("Inside", sap.ui.model.FilterOperator.EQ, true);
-            
-                try {
-                    const readData = await new Promise((resolve, reject) => {
-                        oModel.read("/ASSIGNEDSLOTSSet", {
-                            filters: [ofilter1, ofilter2],
-                            success: resolve,
-                            error: reject
-                        });
-                    });
-            
-                    if (!readData || readData.results.length === 0) {
-                        var ss = '+91' + oMobile;
-                        const accountSid = 'ACb224f5ef242a9b70012285792ef40e8a';
-                        const authToken = '825aa6f260cb55938c47a748ae6cdba0';
-                        const toNumber = ss; // Replace with recipient's phone number
-                        const fromNumber = '+18149043908'; // Replace with your Twilio phone number
-                        const messageBody = `Hello ${oVendor}, your Reservation parking Slot ${oParkingLotId} for truck ${oTruckNo} is confirmed!`; // Message content
-            
-                        // Twilio API endpoint for sending messages
-                        const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
-            
-                        // Payload for the POST request
-                        const payload = {
-                            To: toNumber,
-                            From: fromNumber,
-                            Body: messageBody
-                        };
-            
-                        // Send POST request to Twilio API using jQuery.ajax
-                        await new Promise((resolve, reject) => {
-                            $.ajax({
-                                url: url,
-                                type: 'POST',
-                                headers: {
-                                    'Authorization': 'Basic ' + btoa(accountSid + ':' + authToken)
-                                },
-                                data: payload,
-                                success: resolve,
-                                error: reject
-                            });
-                        }).then(() => {
-                            sap.m.MessageToast.show('SMS sent successfully!');
-                        }).catch((error) => {
-                            console.error('Error sending SMS:', error);
-                            sap.m.MessageToast.show('Failed to send SMS: ' + error);
-                        });
-            
-                        // Create ParkingVeh entity
-                        await this.createData(oModel, opayload, "/ASSIGNEDSLOTSSet");
-            
-                        // Update ParkingLot to mark slot as unavailable
-                        const oParkingslotpayload = {
-                            Slotno: oParkingLotId,
-                            Status: "Not Available"
-                        };
-            
-                        await this.updateData(oModel, oParkingslotpayload, `/PARKINGSLOTSSet('${oParkingLotId}')`);
-            
-                        // Refresh table items and clear input fields on success
-                        this.getView().byId("idParkingvehiclestable").getBinding("items").refresh(true);
-                        oModel.refresh(true);
-                        this.onRefreshDrop();
-                        this.getView().byId("parkingLotSelect").getBinding("items").refresh();
-                        sap.m.MessageToast.show("Vehicle assigned to parking slot successfully!");
-            
-                        // Update UI elements
-                        this.byId("textprint11").setText(oTruckNo);
-                        this.byId("textprint5").setText(oParkingLotId);
-                        this.byId("textprint234").setText(oDriverName);
-                        this.byId("textprint33").setText(oMobile);
-                        var adata = new Date();
-                        this.byId("dfvtextprint1").setText(adata);
-                        this.byId("dfvtextprint13").setText(formattedTime);
-                        this.byId("textprint443").setText(oinbound);
-            
-                        // Clear input fields
-                        this.clearInputFields();
-                        this.oRefreshButton();
-                        await this.oOpenDial();
-                        await this._generateBarcode(oTruckNo);
-                    } else {
-                        sap.m.MessageBox.error("Truck is already assigned");
-                    }
-                } catch (error) {
-                    console.error("Error in onAssignPress:", error);
-                    sap.m.MessageBox.error("An error occurred: " + error.message);
+                    var that = this;
+                    oModel.read("/ASSIGNEDSLOTSSet", {
+                        filters: [ofilter1, ofilter2], success: async function (odata) {
+                            if (!odata || odata.results.length === 0 || odata === null) {
+                                var ss = '+91' + oMobile;
+                                const accountSid = 'ACb224f5ef242a9b70012285792ef40e8a';
+                                const authToken = '825aa6f260cb55938c47a748ae6cdba0';
+
+                                // Function to send SMS using Twili
+                                debugger
+                                const toNumber = ss; // Replace with recipient's phone number
+                                const fromNumber = '+18149043908'; // Replace with your Twilio phone number
+                                const messageBody = `Hello ${oVendor} your Reservation parking Slot ${oParkingLotId} for truck ${oTruckNo} is confirmed!!`; // Message content
+
+                                // Twilio API endpoint for sending messages
+                                const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
+
+                                // Payload for the POST request
+                                const payload = {
+                                    To: toNumber,
+                                    From: fromNumber,
+                                    Body: messageBody
+                                };
+
+                                // Send POST request to Twilio API using jQuery.ajax
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa(accountSid + ':' + authToken)
+                                    },
+                                    data: payload,
+                                    success: function (data) {
+                                        console.log('SMS sent successfully:', data);
+                                        sap.m.MessageToast.show('SMS sent successfully!');
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('Error sending SMS:', error);
+                                        sap.m.MessageToast.show('Failed to send SMS: ' + error);
+                                    }
+                                });
+
+                                // Create ParkignVeh entity
+                                await that.createData(oModel, opayload, "/ASSIGNEDSLOTSSet")
+                                    .then(() => {
+                                        // Update ParkingLot to mark slot as unavailable
+                                        const oParkingslotpayload = {
+                                            Slotno: oParkingLotId,
+                                            Status: "Not Available" // Corrected spelling to 'available'
+                                        };
+                                        that.getView().byId("idParkingvehiclestable").getBinding("items").refresh(true);
+                                        oModel.refresh(true)
+                                        that.getView().byId("parkingLotSelect").getBinding("items").refresh();
+                                        return that.updateData(oModel, oParkingslotpayload, "/ParkingLot('" + oParkingLotId + "')");
+                                        oModel.refresh(true);
+                                    })
+                                    .then(() => {
+                                        // Refresh table items and clear input fields on success
+                                        that.getView().byId("idParkingvehiclestable").getBinding("items").refresh(true);
+                                        oModel.refresh(true);
+                                        that.oRefreshButton();
+                                        sap.m.MessageToast.show("Vehicle assigned to parking slot successfully!");
+                                        oModel.refresh(true);
+                                        that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
+                                        that.clearInputFields();
+                                        oModel.refresh(true);
+                                    })
+                                    .catch((error) => {
+                                        // sap.m.MessageBox.error("Failed to assign vehicle to parking slot: " + error.message);
+                                    });
+
+                                await that.oOpenDial();
+
+                                that._generateBarcode(oTruckNo)
+                                that.byId("textprint11").setText(oTruckNo);
+                                console.log(oTruckNo);
+                                that.byId("textprint5").setText(oParkingLotId);
+                                console.log(oParkingLotId);
+                                that.byId("textprint234").setText(oDriverName);
+                                console.log(oDriverName)
+                                that.byId("textprint33").setText(oMobile);
+                                var adata = new Date();
+                                that.byId("dfvtextprint1").setText(adata);
+                                that.byId("dfvtextprint13").setText(formattedTime);
+                                console.log(oMobile)
+                                if (oinbound === false) {
+                                    that.byId("textprint443").setText("Outbound");
+                                } else {
+                                    that.byId("textprint443").setText("Inbound");
+                                }
+                            } else {
+                                sap.m.MessageBox.error("Truck is already assigned");
+                            }
+                        }
+                    })
                 }
+
+
+            },
+            createData: function (oModel, opayload, sPath) {
+                return new Promise((resolve, reject) => {
+                    oModel.create(sPath, opayload, {
+                        success: function (oSuccessData) {
+                            resolve(oSuccessData);
+                            oModel.refresh(true);
+                        },
+                        error: function (oErrorData) {
+                            reject(oErrorData);
+                        }
+                    });
+                });
+
+
+            },
+            updateData: function (oModel, opayload, sPath) {
+                return new Promise((resolve, reject) => {
+                    oModel.update(sPath, opayload, {
+                        success: function (oSuccessData) {
+                            resolve(oSuccessData);
+                            oModel.refresh(true);
+                        },
+                        error: function (oErrorData) {
+                            reject(oErrorData);
+                        }
+                    });
+                });
+
+
             },
             
             clearInputFields: function () {
@@ -1286,5 +1325,136 @@ sap.ui.define([
         var oModel = this.getView().getModel();
         oModel.refresh(true);
     },
+
+    /**Bar code Generator in Print */
+    
+    _generateBarcode: function (barcodeValue) {
+        var oHtmlControl = this.byId("barcodeContainer");
+        if (oHtmlControl) {
+            oHtmlControl.setContent('<svg id="barcode" ></svg>');
+            setTimeout(function () {
+                JsBarcode("#barcode", barcodeValue, {
+                    displayValue: false // Hide the value
+                });
+            }, 0);
+        } else {
+            console.error("HTML control not found or not initialized.");
+        }
+    },
+
+    onAddLoan: function () {
+        var osam = this.byId("idReserveParkingtable").getSelectedItem();
+        if (!osam) {
+            sap.m.MessageBox.error("Please Select alteast one Row!!!");
+            return
+        }
+        var oData = this.byId("idReserveParkingtable").getSelectedItem().getBindingContext().getObject();
+
+        // Create a new Date object
+        var currentDate = new Date();
+
+        // Extract date components
+        var exitDate1 = currentDate.getFullYear() + '-' +
+            ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + currentDate.getDate()).slice(-2);
+
+        // Extract time components
+        var exitTime1 = ('0' + currentDate.getHours()).slice(-2) + ':' +
+            ('0' + currentDate.getMinutes()).slice(-2) + ':' +
+            ('0' + currentDate.getSeconds()).slice(-2);
+
+        const oAddLoanModel = new sap.ui.model.json.JSONModel({
+            truckNo: oData.truckNo,
+            driverName: oData.driverName,
+            driverMob: oData.driverMob,
+            enterDate: exitDate1,
+            enterTime: exitTime1,
+            exitDate: "",
+            exitTime: "",
+            vendorName: oData.vendorName,
+            assign: true,
+            leave: false,
+            inbound: oData.inbound,
+            parkinglot_id: oData.parkinglot_id
+
+        });
+        this.getView().setModel(oAddLoanModel, "oAddLoanModel");
+        // var temp = oAddLoanModel.getData().id;
+        // console.log(temp);
+        const accountSid = 'ACb224f5ef242a9b70012285792ef40e8a';
+        const authToken = '825aa6f260cb55938c47a748ae6cdba0';
+
+        // Function to send SMS using Twili
+        const onum = '+91' + oData.driverMob;
+        debugger
+        const toNumber = onum // Replace with recipient's phone number
+        const fromNumber = '+18149043908'; // Replace with your Twilio phone number
+        const messageBody = `Hello, ${oData.vendorName} your reservation for ${oData.parkinglot_id} for truck ${oData.truckNo} is Approved!! !`; // Message content
+
+        // Twilio API endpoint for sending messages
+        const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
+
+        // Payload for the POST request
+        const payload = {
+            To: toNumber,
+            From: fromNumber,
+            Body: messageBody
+        };
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            headers: {
+                'Authorization': 'Basic ' + btoa(accountSid + ':' + authToken)
+            },
+            data: payload,
+            success: function (data) {
+                console.log('SMS sent successfully:', data);
+
+                sap.m.MessageToast.show('SMS sent successfully!');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error sending SMS:', error);
+
+                sap.m.MessageToast.show('Failed to send SMS: ' + error);
+            }
+        });
+
+
+        const oModel = this.getView().getModel("ModelV2");
+        var that = this;
+        oModel.create("/ParkignVeh", oAddLoanModel.getData(), {
+            success: function (odata) {
+                console.log("succes");
+                oModel.refresh(true);
+                that.byId("idParkingvehiclestable").getBinding("items").refresh(true);
+                oModel.update("/ParkingLot('" + oAddLoanModel.getData().parkinglot_id + "')", { avialable: "Not Available" }, {
+                    success: function (odata) {
+                        console.log(odata);
+                        oModel.refresh(true)
+                        that.getView().byId("idparkingslottable").getBinding("items").refresh();
+
+                        // oModel.refresh(true);
+                        oModel.remove("/ReserveParking(" + oData.id + ")", {
+                            success: function (odata) {
+                                console.log("success")
+                                debugger
+                                sap.m.MessageToast.show("successfully ParkingSlot Assigned to Truck!!");
+                                that.getView().byId("idReserveParkingtable").getBinding("items").refresh(true);
+                                oModel.refresh(true);
+                            }, error: function (oError) {
+                                console.log(oError);
+                            }
+                        });
+                    }, error: function (oError) {
+                        console.log(oError);
+                    }
+                });
+            }, error: function (oError) {
+                console.log(oError);
+            }
+        })
+    },
+   
         });
     });
