@@ -6,7 +6,8 @@ sap.ui.define([
     "sap/m/Token",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
-    "sap/ndc/BarcodeScanner"
+    "sap/ndc/BarcodeScanner",
+    
 ],
     function (Controller, ODataModel, Filter, FilterOperator, Token, Fragment, JSONModel, BarcodeScanner) {
         "use strict";
@@ -69,11 +70,11 @@ sap.ui.define([
                 }
             },
             /*For ToolMenuCollapse */
-            //  onCollapseExpandPress() {
-            //      const oSideNavigation = this.byId("idSidenavigation"),
-            //      bExpanded = oSideNavigation.getExpanded();
-            //      oSideNavigation.setExpanded(!bExpanded);
-            //  },
+             onCollapseExpandPress() {
+                 const oSideNavigation = this.byId("idSidenavigation"),
+                 bExpanded = oSideNavigation.getExpanded();
+                 oSideNavigation.setExpanded(!bExpanded);
+             },
             applyFilters: function () {
                 var oView = this.getView();
                 var oOutbox = oView.byId("_IDOutboundCheckBox");
@@ -1284,25 +1285,39 @@ sap.ui.define([
                 }
             },
             onprint121: function () {
+                // Retrieve the DOM element
                 var bodyElement = this.getView().byId("idSimpleForm").getDomRef();
-                var oDomRef = bodyElement;
+                
+                if (!bodyElement) {
+                    console.error("Element not found or not yet rendered");
+                    return;
+                }
+            
                 var that = this;
-                domtoimage.toPng(oDomRef).then(function (dataUrl) {
-                    var downloadLink = document.createElement('a');
-                    downloadLink.href = dataUrl;
-                    downloadLink.download = 'fullscreenshot.png';
-                    downloadLink.style.display = 'none';
-                    document.body.appendChild(downloadLink);
-                    downloadLink.click();
-                    document.body.removeChild(downloadLink);
-            that.closeReceiptDailog();
-            that.onBeforeRendering();
-                    
-                })
+            
+                // Capture the element as a PNG image
+                domtoimage.toPng(bodyElement)
+                    .then(function (dataUrl) {
+                        // Create a link element to download the image
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = dataUrl;
+                        downloadLink.download = 'fullscreenshot.png';
+                        downloadLink.style.display = 'none';
+                        
+                        // Append the link to the DOM, click it to start the download, then remove it
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+            
+                        // Optionally close dialog and refresh
+                        that.closeReceiptDailog();
+                        that.onBeforeRendering();
+                    })
                     .catch(function (error) {
-                        console.error('Error:', error);
+                        console.error('Error capturing image:', error);
                     });
             },
+            
 
             formatDateToShort: function (date) {
                 const year = date.getFullYear();
@@ -1362,20 +1377,25 @@ sap.ui.define([
         var exitTime1 = ('0' + currentDate.getHours()).slice(-2) + ':' +
             ('0' + currentDate.getMinutes()).slice(-2) + ':' +
             ('0' + currentDate.getSeconds()).slice(-2);
+            if(oData.inbound === true){
+                oData.inbound = 'inbound';
+            }else{
+                oData.inbound = 'Outbound';
+            }
 
         const oAddLoanModel = new sap.ui.model.json.JSONModel({
-            truckNo: oData.truckNo,
-            driverName: oData.driverName,
-            driverMob: oData.driverMob,
-            enterDate: exitDate1,
-            enterTime: exitTime1,
-            exitDate: "",
-            exitTime: "",
-            vendorName: oData.vendorName,
-            assign: true,
-            leave: false,
-            inbound: oData.inbound,
-            parkinglot_id: oData.parkinglot_id
+            Truckno: oData.Truckno,
+            Drivername: oData.Drivername,
+            Drivermobile: oData.Drivermobile,
+            Endate: exitDate1,
+            Entime: exitTime1,
+            Extime: "",
+            Exdate: "",
+            Vendorname: oData.Vendorname,
+            Inside: true,
+            Outside: false,
+            Delivery: oData.inbound,
+            Slotno: oData.Slotno
 
         });
         this.getView().setModel(oAddLoanModel, "oAddLoanModel");
@@ -1421,21 +1441,21 @@ sap.ui.define([
         });
 
 
-        const oModel = this.getView().getModel("ModelV2");
+        const oModel = this.getView().getModel();
         var that = this;
-        oModel.create("/ParkignVeh", oAddLoanModel.getData(), {
+        oModel.create("/ASSIGNEDSLOTSSet", oAddLoanModel.getData(), {
             success: function (odata) {
                 console.log("succes");
                 oModel.refresh(true);
                 that.byId("idParkingvehiclestable").getBinding("items").refresh(true);
-                oModel.update("/ParkingLot('" + oAddLoanModel.getData().parkinglot_id + "')", { avialable: "Not Available" }, {
+                oModel.update("/PARKINGSLOTSSet('" + oAddLoanModel.getData().Slotno + "')", { Status: "Not Available" }, {
                     success: function (odata) {
                         console.log(odata);
                         oModel.refresh(true)
                         that.getView().byId("idparkingslottable").getBinding("items").refresh();
 
                         // oModel.refresh(true);
-                        oModel.remove("/ReserveParking(" + oData.id + ")", {
+                        oModel.remove("/ReservedSlotsSet('" + oData.Reserveno +"')", {
                             success: function (odata) {
                                 console.log("success")
                                 debugger
@@ -1455,6 +1475,25 @@ sap.ui.define([
             }
         })
     },
+    /**Navigation to Vendor Page */
+    onVendor:function(){
+         this.getOwnerComponent().getRouter().navTo("RouteVendor");
+    },
+
+   /**Status Color fomatter for ParkingSLots */ 
+   statusColorFormatter: function (sStatus) {
+    console.log("Formatter called with status:", sStatus);
+    switch (sStatus) {
+        case "Not Available":
+            return "Error"; // Red
+        case "Available":
+            return "Success"; // Green
+        case "Reserved":
+            return "Warning"; // Orange
+        default:
+            return "None"; // Default color
+    }
+},
    
         });
     });

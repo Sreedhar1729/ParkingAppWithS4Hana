@@ -45,6 +45,7 @@
                     />
 
                     <ToolbarSpacer id="idtoolspacer2" />
+                    <Button id="veds" text="vendor page" press="onVendor"/>
 
                     <Button
                         id="idnotification"
@@ -750,7 +751,7 @@
                                         text="Delete"
                                         press="onDelete"
                                         icon="sap-icon://delete"
-                                        type="Emphasized"
+                                        type="Negative"
                                     />
                                     <Button
                                         id="iiirefresh"
@@ -785,18 +786,19 @@
                                         text="Slot Length"
                                     />
                                 </Column> -->
+                                 <Column id="idparkingdeltype">
+                                    <Title
+                                        id="iddeltype"
+                                        text="Delivery Type"
+                                    />
+                                </Column>
                                 <Column id="idparkingavailability">
                                     <Title
                                         id="idavailabilitystatus"
                                         text="Status"
                                     />
                                 </Column>
-                                <Column id="idparkingdeltype">
-                                    <Title
-                                        id="iddeltype"
-                                        text="Delivery Type"
-                                    />
-                                </Column>
+                               
                             </columns>
 
                             <!-- items -->
@@ -811,13 +813,16 @@
                                             id="parkinglengthvalue"
                                             text="{length}"
                                         /> -->
-                                        <Text
-                                            id="parkingavailadbility"
-                                            text="{Status}"
-                                        />
+                                        
                                         <Text
                                             id="parkinginwarvalue"
                                             text="{Delivery}"
+                                        />
+                                        <ObjectStatus
+                                            id="parkingavailadbility"
+                                            text="{Status}"
+                                             class="status-{path: 'Status', formatter: '.statusColorFormatter'}"
+                                            state="{path: 'Status', formatter: '.statusColorFormatter'}"
                                         />
                                     </cells>
                                 </ColumnListItem>

@@ -1,0 +1,115 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idresevednd"
+        title="Reservation of ParkingLot"
+    >
+        <beginButton>
+            <Button
+                id="ksksas"
+                text="Confirm"
+                type="Success"
+                press="onConfirmDialog"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="kdkja"
+                text="Cancel"
+                type="Negative"
+                press="onCloseDialog"
+            />
+        </endButton>
+        <content>
+            <form:SimpleForm
+                id="idsseims"
+                editable="false"
+            >
+                <Label
+                    id="idttielvallabel"
+                    text="Truck Number:"
+                />
+                <Input
+                    required="true"
+                    id="idventruckno"
+                    value="{}"
+                    liveChange="TruckLiveChange"
+                />
+                <Label
+                    id="idvendorDrivername"
+                    text="Driver Name"
+                />
+                <Input
+                    required="true"
+                    id="idvendrivername"
+                    value="{}"
+                    liveChange="DriverNameChange"
+                />
+                <Label
+                    id="idlabel"
+                    text="Driver Mobile"
+                />
+                <Input
+                    id="idvenddrivermob"
+                    value="{  }"
+                    required="true"
+                    liveChange="onMobileVal"
+                />
+                <Label
+                    id="idlabelVendorName"
+                    text="Vendor Name:"
+                />
+                <Input
+                    id="idvednorval"
+                    value="{}"
+                    required="true"
+                />
+                <Label
+                    id="ojjjdas"
+                    text="Inbound"
+                />
+                <Select
+                    required="true"
+                    id="inwards"
+                    selectedKey="{Delivery}"
+                >
+                    <items>
+                        <core:Item
+                            id="iditeadms"
+                            text=" "
+                            key=""
+                        />
+                        <core:Item
+                            id="_IDGenItems1"
+                            text="Inbound"
+                            key="Inbound"
+                        />
+                        <core:Item
+                            id="_IDGenItems2"
+                            text="Outbound"
+                            key="Outbound"
+                        />
+                    </items>
+                </Select>
+                <Label
+                    id="idParkingslotLabels123"
+                    text="Parking Slot Numbers"
+                />
+                <Select
+                    id="parkingLotSelect121"
+                    required="true"
+                    items="{path: '/PARKINGSLOTSSet', filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                >
+                    <core:Item
+                        id="_IDGenItem511"
+                        key="{Slotno}"
+                        text="{Slotno}"
+                    />
+                </Select>
+            </form:SimpleForm>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

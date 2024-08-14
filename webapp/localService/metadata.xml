@@ -1,75 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
-    <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="ZSD_PARKINGLOT_APPLICATION_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <EntityType Name="PARKINGSLOTS" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Slotno"/>
-                </Key>
-                <Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Status" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="ParkingSlot Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Delivery" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-            </EntityType>
-            <EntityType Name="ASSIGNEDSLOTS" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Assignedno"/>
-                </Key>
-                <Property Name="Entime" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Assignedno" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Assigned Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Extime" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="TIme" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Endate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Exdate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Inside" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Outside" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-            </EntityType>
-            <EntityType Name="NOTIFICATIONS" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Notificationid"/>
-                </Key>
-                <Property Name="Notificationid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Notification Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Conf" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Pending" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-            </EntityType>
-            <EntityType Name="ReservedSlots" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Reserveno"/>
-                </Key>
-                <Property Name="Reserveno" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Reserve Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Rcdate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Rstatus" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Rctime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Rstime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Rsdate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-            </EntityType>
-            <EntityContainer Name="ZSD_PARKINGLOT_APPLICATION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="PARKINGSLOTSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.PARKINGSLOTS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="ASSIGNEDSLOTSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.ASSIGNEDSLOTS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="NOTIFICATIONSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.NOTIFICATIONS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="ReservedSlotsSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.ReservedSlots" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-            </EntityContainer>
-            <atom:link rel="self" href="http://vhcalakeci.artihcus.com:50600/sap/opu/odata/sap/ZSD_PARKINGLOT_APPLICATION_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="http://vhcalakeci.artihcus.com:50600/sap/opu/odata/sap/ZSD_PARKINGLOT_APPLICATION_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-        </Schema>
-    </edmx:DataServices>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<edmx:DataServices m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZSD_PARKINGLOT_APPLICATION_SRV" xml:lang="en" sap:schema-version="1">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+<EntityType Name="PARKINGSLOTS" sap:content-version="1">
+<Key>
+<PropertyRef Name="Slotno"/>
+</Key>
+<Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:quickinfo="slot element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="ParkingSlot Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ASSIGNEDSLOTS" sap:content-version="1">
+<Key>
+<PropertyRef Name="Assignedno"/>
+</Key>
+<Property Name="Entime" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Assignedno" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Assigned Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Extime" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="TIme" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:quickinfo="Truck number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Endate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Exdate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:quickinfo="slot element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Inside" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Outside" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="NOTIFICATIONS" sap:content-version="1">
+<Key>
+<PropertyRef Name="Notificationid"/>
+</Key>
+<Property Name="Message" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Notificationid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Notification Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:quickinfo="Truck number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Conf" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Pending" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ReservedSlots" sap:content-version="1">
+<Key>
+<PropertyRef Name="Reserveno"/>
+</Key>
+<Property Name="Reserveno" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Reserve Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Rcdate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Rstatus" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:quickinfo="Truck number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Rctime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Rstime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Rsdate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendorname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vendormobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:quickinfo="slot element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Delivery Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityContainer Name="ZSD_PARKINGLOT_APPLICATION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+<EntitySet Name="PARKINGSLOTSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.PARKINGSLOTS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+<EntitySet Name="ASSIGNEDSLOTSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.ASSIGNEDSLOTS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+<EntitySet Name="NOTIFICATIONSSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.NOTIFICATIONS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+<EntitySet Name="ReservedSlotsSet" EntityType="ZSD_PARKINGLOT_APPLICATION_SRV.ReservedSlots" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+</EntityContainer>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="http://vhcalakeci.artihcus.com:50600/sap/opu/odata/sap/ZSD_PARKINGLOT_APPLICATION_SRV/$metadata"/>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="http://vhcalakeci.artihcus.com:50600/sap/opu/odata/sap/ZSD_PARKINGLOT_APPLICATION_SRV/$metadata"/>
+</Schema>
+</edmx:DataServices>
 </edmx:Edmx>

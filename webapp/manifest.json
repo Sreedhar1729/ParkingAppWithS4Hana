@@ -113,7 +113,15 @@
           "target":[
             "TargetSlot"
           ]
+        },
+        {
+          "name": "RouteVendor",
+          "pattern": "Vendor",
+          "target":[
+            "TargetVendor"
+          ]
         }
+
       ],
       "targets": {
         "TargetHome": {
@@ -133,6 +141,13 @@
         "TargetSlot":{
           "viewId": "Slot",
           "viewName": "Slot",
+          "clearControlAggregation": false,
+          "viewType": "XML",
+          "transition":"flip"
+        },
+        "TargetVendor":{
+          "viewId": "VendorPage",
+          "viewName": "VendorPage",
           "clearControlAggregation": false,
           "viewType": "XML",
           "transition":"flip"

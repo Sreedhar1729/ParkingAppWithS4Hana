@@ -1,0 +1,27 @@
+    <mvc:View controllerName="com.app.parkapplication.controller.VendorPage"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+        titleAlignment="Center"
+    >
+        <headerContent>
+            <ToolbarSpacer id="idttool" />
+            <Button
+                id="iddbbuu"
+                text="Reservation"
+                press="onReservePress"
+            />
+        </headerContent>
+        <content>
+            <Image
+                id="idvendorimage"
+                width="100%"
+                src="https://i.postimg.cc/sD7KXDSR/transportation-and-logistic-import-export-and-transport-industry-of-truck-container-cargo-ship-photo.jpg"
+            />
+        </content>
+    </Page>
+</mvc:View>
