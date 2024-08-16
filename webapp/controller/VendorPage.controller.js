@@ -1,8 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/Fragment"
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/core/Fragment",
+    "sap/m/MessageBox"
 ],
-    function (Controller) {
+    function (Controller, Filter, FilterOperator, Fragment,MessageBox) {
         "use strict";
 
         return Controller.extend("com.app.parkapplication.controller.VendorPage", {
@@ -30,6 +33,11 @@ sap.ui.define([
                     oVendorName = this.byId("idvednorval").getValue(),
                     oinbound = this.byId("inwards").getSelectedKey(),
                     oparkingid = this.byId("parkingLotSelect121").getSelectedKey();
+                    if(!oTruckNo || !oDriverName || !oDriverMob  || !oVendorName || !oinbound || !oparkingid)
+                        {
+                            MessageBox.error("Please enter All values")
+                        }
+                        else{
 
                 // Create a new Date object
                 var currentDate = new Date();
@@ -63,9 +71,9 @@ sap.ui.define([
                 const oNotification = new sap.ui.model.json.JSONModel({
                     Vendorname: oVendorName,
                     Slotno: oparkingid,
-                    Truckno:oTruckNo,
-                    Delivery:oinbound,
-                    Message:msg
+                    Truckno: oTruckNo,
+                    Delivery: oinbound,
+                    Message: msg
                 })
                 this.getView().setModel(oNotification, "oNotification")
                 var oid = oparkingid.split(' ').join('');
@@ -102,6 +110,7 @@ sap.ui.define([
                         sap.m.MessageBox.error("Error !!");
                     }
                 })
+            }
 
             },
             onMobileVal: async function (oEvent) {
@@ -153,5 +162,43 @@ sap.ui.define([
 
                 }
             },
-        });
+            //  onAfterRendering:function(){
+            //         this.onDeliveryChange();
+            //  },
+    
+            onDeliveryChange: function (oEvent) {
+                // Get selected key
+                var sSelectedKey = oEvent.getSource().getSelectedKey();
+                console.log("Selected Delivery Type:", sSelectedKey);
+    
+                // Create filters
+                var aFilters = [];
+                if (sSelectedKey) {
+                    aFilters.push(new Filter('Delivery', FilterOperator.EQ, sSelectedKey));
+                }
+                aFilters.push(new Filter('Status', FilterOperator.EQ, 'Available'));
+    
+                // Get the Select control
+                var oParkingSlotSelect = this.byId("parkingLotSelect121");
+                if (!oParkingSlotSelect) {
+                    console.error("Parking Slot Select control not found.");
+                    return;
+                }
+    
+                // Get the binding of the Select control
+                var oBinding = oParkingSlotSelect.getBinding("items");
+                if (!oBinding) {
+                    console.error("Binding not found for Parking Slot Select.");
+                    return;
+                }
+    
+                // Apply filters
+                oBinding.filter(aFilters);
+    
+                // Optional: Log filtered items
+                oBinding.getContexts().forEach(function (context) {
+                    console.log("Filtered Item:", context.getObject());
+                });
+            }
+                });
     });

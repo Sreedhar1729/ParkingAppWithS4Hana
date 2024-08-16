@@ -160,10 +160,11 @@
             </tnt:SideNavigation>
         </tnt:sideContent>
         <!-- Tool Page Main content For Displaying OUR Data in TABLEs AND other Forms -->
-        <tnt:mainContents>
+        <tnt:mainContents >
             <NavContainer
                 id="idNavContainer"
                 initialPage="root2"
+                class="sssp"
             >
                 <!-- ToolPage Pages @here we can declare how many slides we need -->
                 <pages>

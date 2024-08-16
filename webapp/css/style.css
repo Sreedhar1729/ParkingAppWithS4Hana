@@ -484,3 +484,8 @@ transition: background-color 0.3s ease; /* Smooth transition */
 .ttttt{
     background-color: white;
 }
+.sssp {
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
+    background-image: url("https://img.freepik.com/free-photo/truck-with-trailer-road_1340-32492.jpg")
+}
