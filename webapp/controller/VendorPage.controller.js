@@ -64,7 +64,8 @@ sap.ui.define([
                     Vendorname: oVendorName,
                     Slotno: oparkingid,
                     Truckno:oTruckNo,
-                    Delivery:oinbound
+                    Delivery:oinbound,
+                    Message:msg
                 })
                 this.getView().setModel(oNotification, "oNotification")
                 var oid = oparkingid.split(' ').join('');

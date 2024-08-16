@@ -43,6 +43,7 @@
             <m:NotificationListItem
                 id="notificationssid"
                 title="{Vendorname}"
+                highlightText="{Vendorname}"
                 description="{Message}"
                 showCloseButton="true"
                 close=".onItemClose"

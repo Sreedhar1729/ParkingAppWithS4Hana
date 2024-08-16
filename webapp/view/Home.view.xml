@@ -16,7 +16,6 @@
 >
     <tnt:ToolPage
         id="app"
-        
         class="sa"
     >
         <tnt:header>
@@ -45,7 +44,11 @@
                     />
 
                     <ToolbarSpacer id="idtoolspacer2" />
-                    <Button id="veds" text="vendor page" press="onVendor"/>
+                    <Button
+                        id="veds"
+                        text="vendor page"
+                        press="onVendor"
+                    />
 
                     <Button
                         id="idnotification"
@@ -56,7 +59,7 @@
                         <customData>
                             <BadgeCustomData
                                 id="_IDGenBadgeCustomData1"
-                                value="{/NOTIFICATIONSSet/$count}"
+                                value="{path:'/NOTIFICATIONSSet',parameters:{ $count : true}}"
                                 visible="{= ${/NOTIFICATIONSSet/$count} > 0 }"
                             />
                         </customData>
@@ -167,7 +170,7 @@
                     <!-- Reservations Table with Pending Status -->
                     <ScrollContainer
                         id="reservationpending"
-                       horizontal="false"
+                        horizontal="false"
                         vertical="true"
                         height="100%"
                         width="100%"
@@ -291,7 +294,7 @@
                         horizontal="false"
                         vertical="true"
                         height="100%"
-                         width="100%"
+                        width="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="ParkingHistory">
@@ -400,7 +403,7 @@
                                             />
                                             <Text
                                                 id="idtruckhisenterDateval"
-                                                text="{Endate}"
+                                                text="{path: 'Endate', formatter: '.formatDate'}"
                                             />
                                             <Text
                                                 id="idparkinghisexitDateval"
@@ -430,7 +433,7 @@
                         horizontal="false"
                         vertical="true"
                         height="100%"
-                         width="100%"
+                        width="100%"
                         class="sapUiContentPadding"
                     >
                         <VBox id="idprkingveh">
@@ -571,7 +574,7 @@
                                             />
                                             <Text
                                                 id="idtruckenterDateval"
-                                                text="{Endate}"
+                                                text="{path: 'Endate', formatter: '.formatDate'}"
                                             />
                                             <!-- <Text
                                                 id="idparkingexitDateval"
@@ -589,7 +592,7 @@
                                                     required="true"
                                                     visible="false"
                                                     editable="true"
-                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'},{path:'Delivery',operator:'EQ',value1:'Inbound'}]}"
                                                 >
                                                     <t:Item
                                                         id="_IDGenItem115"
@@ -613,8 +616,10 @@
                         </VBox>
                     </ScrollContainer>
                     <!-- Home Page It Displays Image -->
-                    <ScrollContainer id="root2"  width="100%">
-                    
+                    <ScrollContainer
+                        id="root2"
+                        width="100%"
+                    >
                         <Image
                             id="idimage"
                             width="100%"
@@ -624,10 +629,9 @@
                     <!-- ParkingSlots Table  Page -->
                     <ScrollContainer
                         id="root3"
-                        
                         class="temp"
                         horizontal="false"
-                         width="100%"
+                        width="100%"
                         height="100%"
                         vertical="true"
                     >
@@ -771,10 +775,7 @@
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
-                                <Column
-                                    id="idparkingveh_id"
-                                    
-                                >
+                                <Column id="idparkingveh_id">
                                     <Title
                                         id="parkingveh_text"
                                         text="ParkingSlot"
@@ -786,7 +787,7 @@
                                         text="Slot Length"
                                     />
                                 </Column> -->
-                                 <Column id="idparkingdeltype">
+                                <Column id="idparkingdeltype">
                                     <Title
                                         id="iddeltype"
                                         text="Delivery Type"
@@ -798,7 +799,6 @@
                                         text="Status"
                                     />
                                 </Column>
-                               
                             </columns>
 
                             <!-- items -->
@@ -813,7 +813,7 @@
                                             id="parkinglengthvalue"
                                             text="{length}"
                                         /> -->
-                                        
+
                                         <Text
                                             id="parkinginwarvalue"
                                             text="{Delivery}"
@@ -821,7 +821,7 @@
                                         <ObjectStatus
                                             id="parkingavailadbility"
                                             text="{Status}"
-                                             class="status-{path: 'Status', formatter: '.statusColorFormatter'}"
+                                            class="status-{path: 'Status', formatter: '.statusColorFormatter'}"
                                             state="{path: 'Status', formatter: '.statusColorFormatter'}"
                                         />
                                     </cells>
@@ -833,7 +833,7 @@
                     <ScrollContainer
                         id="idparkingassign"
                         class="sss"
-                         width="100%"
+                        width="100%"
                         vertical="true"
                         height="100%"
                     >
@@ -965,9 +965,10 @@
                         </VBox>
                     </ScrollContainer>
                     <!-- Reserve parking page in toolpage Layout with status Confirmed -->
-                    <ScrollContainer id="root4" 
-                    width="100%"
-                     horizontal="false"
+                    <ScrollContainer
+                        id="root4"
+                        width="100%"
+                        horizontal="false"
                         vertical="true"
                         height="100%"
                         class="sapUiContentPadding"
@@ -1141,7 +1142,6 @@
                                         text="ConfirmDate"
                                     />
                                 </Column>
-                                 
                             </columns>
 
                             <!-- items -->
@@ -1192,7 +1192,6 @@
                                             id="ReservedParkingConfDate"
                                             text="{Rcdate}"
                                         />
-                                         
                                     </cells>
                                 </ColumnListItem>
                             </items>

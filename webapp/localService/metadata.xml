@@ -36,6 +36,7 @@
 </Key>
 <Property Name="Message" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
 <Property Name="Notificationid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Notification Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Slotno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Slot NUmbers" sap:quickinfo="slot element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
 <Property Name="Truckno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Truck Number" sap:quickinfo="Truck number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
 <Property Name="Drivername" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="driver name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
 <Property Name="Drivermobile" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mobile Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
