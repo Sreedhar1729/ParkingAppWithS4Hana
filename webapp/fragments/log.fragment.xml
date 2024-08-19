@@ -1,0 +1,53 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+
+<Dialog id="Dialog">
+            <beginButton>
+                <Button
+                    id="idloginConfirm"
+                    text="Login"
+                    type="Emphasized"
+                    press="LoginConfirm"
+                />
+            </beginButton>
+            <endButton>
+                <Button
+                    id="loginCancel"
+                    text="Cancel"
+                    type="Negative"
+                    press="LoginCancel"
+                />
+            </endButton>
+            <content>
+                <form:SimpleForm id="idloginform" >
+                    <form:content>
+                      <Title
+                        id="idFormTitle"
+                        text="Login Page"
+                        textAlign="Center"
+                    />
+                        <Label
+                            id="UserNameLabel"
+                            text="UserName"
+                            width="33%"
+                        />
+                        <Input
+                            id="UserNameval"
+                            value=""
+                        />
+                        <Label
+                            id="Password"
+                            text="Password"
+                        />
+                        <Input
+                            id="passwordval"
+                            value=""
+                        />
+                    </form:content>
+                </form:SimpleForm>
+            </content>
+        </Dialog>
+</core:FragmentDefinition>

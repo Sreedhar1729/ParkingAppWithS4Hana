@@ -160,7 +160,7 @@
             </tnt:SideNavigation>
         </tnt:sideContent>
         <!-- Tool Page Main content For Displaying OUR Data in TABLEs AND other Forms -->
-        <tnt:mainContents >
+        <tnt:mainContents>
             <NavContainer
                 id="idNavContainer"
                 initialPage="root2"
@@ -253,6 +253,12 @@
                                             text="Delivery"
                                         />
                                     </Column>
+                                    <Column id="idDeloviekks">
+                                        <Title
+                                            id="idtitDelvidk"
+                                            text="Slotno"
+                                        />
+                                    </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem
@@ -282,6 +288,10 @@
                                             <Text
                                                 id="idtrnas"
                                                 text="{Delivery}"
+                                            />
+                                            <Text
+                                                id="iokslldjwkj"
+                                                text="{Slotno}"
                                             />
                                         </cells>
                                     </ColumnListItem>
@@ -587,13 +597,14 @@
                                                     value="{Slotno}"
                                                     editable="false"
                                                     visible="true"
+                                                    type="Text"
                                                 />
                                                 <Select
                                                     id="parkingLotSelect1"
                                                     required="true"
                                                     visible="false"
                                                     editable="true"
-                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'},{path:'Delivery',operator:'EQ',value1:'Inbound'}]}"
+                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
                                                 >
                                                     <t:Item
                                                         id="_IDGenItem115"
@@ -1143,6 +1154,12 @@
                                         text="ConfirmDate"
                                     />
                                 </Column>
+                                <Column id="iddeliverytypess">
+                                    <Title
+                                        id="iddeliverytypess132"
+                                        text="Delivery"
+                                    />
+                                </Column>
                             </columns>
 
                             <!-- items -->
@@ -1174,6 +1191,7 @@
                                                 value="{Slotno}"
                                                 editable="false"
                                                 visible="true"
+                                                type="Text"
                                             />
                                             <Select
                                                 id="parkingLotSelect1js"
@@ -1191,7 +1209,11 @@
                                         </VBox>
                                         <Text
                                             id="ReservedParkingConfDate"
-                                            text="{Rcdate}"
+                                            text="{path:'Rcdate', formatter: '.formatDate'}"
+                                        />
+                                        <Text
+                                            id="idddeelvoidleej"
+                                            text="{Delivery}"
                                         />
                                     </cells>
                                 </ColumnListItem>

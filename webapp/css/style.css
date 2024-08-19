@@ -244,6 +244,9 @@ body.dark-mode {
 .sree2,.setcolor4{
     transition: background-color 0.3s ease;
 }
+.whiteText {
+    color: white;
+}
 
 .sree2,.setcolor4:hover{
     background-color: orange;
@@ -488,4 +491,8 @@ transition: background-color 0.3s ease; /* Smooth transition */
     background-color: rgba(255, 255, 255, .15);  
     backdrop-filter: blur(5px);
     background-image: url("https://img.freepik.com/free-photo/truck-with-trailer-road_1340-32492.jpg")
+}
+
+.PageClass{
+    background-image: url("https://images.unsplash.com/photo-1664364196786-8b5d9b374fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3RyZWV0JTIwcGFya2luZ3xlbnwwfHwwfHx8MA%3D%3D");
 }

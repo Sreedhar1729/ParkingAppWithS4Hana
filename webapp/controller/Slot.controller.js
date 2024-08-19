@@ -51,30 +51,30 @@ sap.ui.define([
                                     items: [
                                         new sap.m.Text({
                                             text: "Lot No:"
-                                        }),
+                                        }).addStyleClass("whiteText"),
                                         new sap.m.Text({
                                             text: oPlot.Slotno
-                                        })
+                                        }).addStyleClass("whiteText")
                                     ]
                                 }),
                                 new sap.m.VBox({
                                     items: [
                                         new sap.m.Text({
                                             text: "Delivery:"
-                                        }),
+                                        }).addStyleClass("whiteText"),
                                         new sap.m.Text({
                                             text: oPlot.Delivery
-                                        })
+                                        }).addStyleClass("whiteText")
                                     ]
                                 }),
                                 new sap.m.VBox({
                                     items: [
                                         new sap.m.Text({
                                             text: "Status:"
-                                        }),
+                                        }).addStyleClass("whiteText"),
                                         new sap.m.Text({
                                             text: oPlot.Status
-                                        })
+                                        }).addStyleClass("whiteText")
                                     ]
                                 })
                             ]

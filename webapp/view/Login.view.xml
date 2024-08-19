@@ -1,0 +1,63 @@
+<mvc:View
+    xmlns:form="sap.ui.layout.form"
+    controllerName="com.app.parkapplication.controller.Login"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page id="logingpage" title="Welocome TO ParkingLot" titleAlignment="Center" titleLevel="H1" class="PageClass">
+    <headerContent>
+        <OverflowToolbar id="_IDGenOverflowToolbar9991" class="sapUiContentPadding">
+        <ToolbarSpacer id="_IDGenToolbarSpacer10999" />
+    <Button id="odd" text="LoginButton" press="onLOgin"></Button>
+    </OverflowToolbar>
+    </headerContent>
+        <!-- <Dialog id="Dialog">
+            <beginButton>
+                <Button
+                    id="idloginConfirm"
+                    text="Login"
+                    type="Emphasized"
+                    press="LoginConfirm"
+                />
+            </beginButton>
+            <endButton>
+                <Button
+                    id="loginCancel"
+                    text="Cancel"
+                    type="Negative"
+                    press="LoginCancel"
+                />
+            </endButton>
+            <content>
+                <form:SimpleForm id="idloginform" >
+                    <form:content>
+                      <Title
+                        id="idFormTitle"
+                        text="Login Page"
+                        textAlign="Center"
+                    />
+                        <Label
+                            id="UserNameLabel"
+                            text="UserName"
+                            width="33%"
+                        />
+                        <Input
+                            id="UserNameval"
+                            value=""
+                        />
+                        <Label
+                            id="Password"
+                            text="Password"
+                        />
+                        <Input
+                            id="passwordval"
+                            value=""
+                        />
+                    </form:content>
+                </form:SimpleForm>
+            </content>
+        </Dialog> -->
+    </Page>
+</mvc:View>

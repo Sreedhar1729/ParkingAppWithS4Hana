@@ -92,6 +92,7 @@
                     id="inwards21"
                     required="true"
                     selectedKey="{Delivery}"
+                    change="onDeliveryChange1"
                 >
                     <items>
                         <core:Item
@@ -101,13 +102,13 @@
                         />
                         <core:Item
                             id="_IDGenItems1121"
-                            text="Yes"
-                            key="true"
+                            text="Inbound"
+                            key="Inbound"
                         />
                         <core:Item
                             id="_IDGenItems112"
-                            text="No"
-                            key="false"
+                            text="Outbound"
+                            key="Outbound"
                         />
                     </items>
                 </Select>
@@ -115,7 +116,7 @@
                 <Select
                     id="parkingLotSelect122"
                     required="true"
-                    items="{path: '/PARKINGSLOTSSet', filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                    items="{path: '/PARKINGSLOTSSet'}"
                 >
                     <core:Item
                         id="_IDGenItem51"

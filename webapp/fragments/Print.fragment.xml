@@ -101,7 +101,7 @@
                     <Image
                         id="idnbgfdfg"
                         class="logoReceipt"
-                        src="./images/artihcus.png"  
+                        src="../images/artihcus.png"  
                         width="150px"
                         height="auto"
                         alt="Receipt Logo"
