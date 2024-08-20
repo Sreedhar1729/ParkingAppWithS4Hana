@@ -33,8 +33,8 @@
                         id="idimage1"
                         width="auto"
                         class="tt"
-                        height="50px"
-                        src="https://artihcus.com/assets/img/Artihcus-global-logo-1.png"
+                        height="40px"
+                        src="./images/artihcus.png"
                     />
                     <ToolbarSpacer id="idtoolspace" />
                     <Title
@@ -72,7 +72,7 @@
                         press=" mapsload"
                         class="btcol"
                     />
-                    <!-- <Button id="idtoogle"  text="Toggle Dark/Light Mode" press="onToggleModePress" /> -->
+                    <!-- <Button class="boldButton" id="idtoogle"  text="Toggle Dark/Light Mode" press="onToggleModePress" /> -->
                     <Button
                         id="idlogout"
                         text="Data Visulisation"
@@ -80,12 +80,13 @@
                         class="testingc"
                     />
                     <Button
+                        class="boldButton"
                         id="dark-mode-toggle"
                         press="onToggleDarkMode"
                         icon="sap-icon://dark-mode"
                     />
 
-                    <!-- <Button id="idbt1" text="SMS" press="onSms"/>  -->
+                    <!-- <Button class="boldButton" id="idbt1" text="SMS" press="onSms"/>  -->
                 </tnt:content>
             </tnt:ToolHeader>
         </tnt:header>
@@ -193,26 +194,30 @@
                                         <Title
                                             id="idreservependingtabletitle"
                                             text="Reservation pending"
+                                            class="customTitle"
                                         />
                                         <ToolbarSpacer
                                             id="idreservertoolbarspacer"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="idreserveconfirmation"
                                             press="onConfirm"
                                             text="Confirm"
                                             type="Success"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="idrefres"
-                                            icon="sap-icon://refresh"
-                                            press="onRefresh"
+                                            visible="false"
+                                            text="Cancel"
+                                            press="onCancel111"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="idsorter"
-                                            icon="sap-icon://sort"
-                                            text="sort"
-                                            press="onSort1"
+                                            text="Edit"
+                                            press="onSort111"
                                         />
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -221,43 +226,53 @@
                                         <Title
                                             id="idreservependingtitle"
                                             text="Truck Number"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="idreserevependigicol2">
                                         <Title
                                             id="idreservependingtitleforName"
                                             text="Driver Name"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="idreserevependigicol3">
                                         <Title
                                             id="idreservependingtitleforDriver"
                                             text="Driver Mobile"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="idreservationstatuscol4">
                                         <Title
                                             id="idreservationstatustitle"
                                             text="ReservationStatus"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="idreserveVendor">
                                         <Title
                                             id="idreservevendortitle"
                                             text="Vendor Details"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="isjwef">
                                         <Title
                                             id="iskkwsdd"
                                             text="Delivery"
+                                            class="customTitle11"
                                         />
                                     </Column>
                                     <Column id="idDeloviekks">
                                         <Title
                                             id="idtitDelvidk"
                                             text="Slotno"
+                                            class="customTitle11"
                                         />
+                                    </Column>
+                                    <Column id="oookkeesss">
+                                    <Title id="ooekejsse" text="Arriving Date" class="customTitle11" />
                                     </Column>
                                 </columns>
                                 <items>
@@ -266,33 +281,56 @@
                                     >
                                         <cells>
                                             <Text
+                                                class="boldText14"
                                                 id="idreserveparkinghisvalue"
                                                 text="{Truckno}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idreserveparkinghisvalue1"
                                                 text="{Drivername}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idreserveparkinghisvalue2"
                                                 text="{Drivermobile}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idresparkingstatus"
                                                 text="{Rstatus}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idvendorvalue"
                                                 text="{Vendorname}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idtrnas"
                                                 text="{Delivery}"
                                             />
-                                            <Text
-                                                id="iokslldjwkj"
-                                                text="{Slotno}"
-                                            />
+                                            <VBox id="rederve">
+                                                <Text
+                                                    class="boldText14"
+                                                    id="iokslldjwkj"
+                                                    text="{Slotno}"
+                                                />
+                                                <Select
+                                                    id="parkingLotSelect111"
+                                                    required="true"
+                                                    visible="false"
+                                                    editable="true"
+                                                    items="{path: '/PARKINGSLOTSSet',templateShareable:true, filters: [{path: 'Status', operator: 'EQ', value1: 'Available'}]}"
+                                                >
+                                                    <t:Item
+                                                        id="_IDGenItem1155"
+                                                        key="{Slotno}"
+                                                        text="{Slotno}"
+                                                    />
+                                                </Select>
+                                            </VBox>
+                                            <Text id="oidekssdejje"   class="boldText14" text="{Redate}"></Text>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -323,21 +361,25 @@
                                         <Title
                                             id="idhistory"
                                             text="ParkingLot History"
+                                            class="customTitle11"
                                         />
                                         <ToolbarSpacer
                                             id="idtoolbarspacerhistory"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="idhtmlscr"
                                             text="Table capture by html2canvas"
                                             press="tablecapture"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="Scrreenshot"
                                             text="Screen capture by domtoimage"
                                             press="screencapture"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="scrreenpdf"
                                             text="Download PDF"
                                             press="downloadpdf12"
@@ -348,11 +390,11 @@
                                             width="20%"
                                             placeholder="Search here"
                                         />
-                                        <Button
+                                        <!-- <Button class="boldButton"
                                             id="idsort1"
                                             text="sort"
                                             press="onSort"
-                                        />
+                                        /> -->
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
@@ -360,12 +402,14 @@
                                         <Title
                                             id="idparkinghisvehlabel"
                                             text="VehicleNumber"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                     <Column id="idparkinghisdrivername">
                                         <Title
                                             id="idparkinghisdrivernametitle"
                                             text="Driver Name"
+                                            class="customTitle1"
                                         />
                                     </Column>
 
@@ -373,30 +417,35 @@
                                         <Title
                                             id="idparkinghisenterDatetitle"
                                             text="Enter Date"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                     <Column id="idparkinghisexitDate">
                                         <Title
                                             id="idParkinghisexitDatetitle"
                                             text="Exit Date"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                     <Column id="idassignhisstatus">
                                         <Title
                                             id="idassignhisstatustitle"
                                             text="Delivery"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                     <Column id="idparkingVendordetails">
                                         <Title
                                             id="idparkingvendordea"
                                             text="Vendor Name"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                     <Column id="iisd">
                                         <Title
                                             id="idinesward"
                                             text="Slotno"
+                                            class="customTitle1"
                                         />
                                     </Column>
                                 </columns>
@@ -405,30 +454,37 @@
                                     <ColumnListItem id="idcolhislist2">
                                         <cells>
                                             <Text
+                                                class="boldText14"
                                                 id="idparkinghisvehval"
                                                 text="{Truckno}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idparkinghisdrivernameval"
                                                 text="{Drivername}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idtruckhisenterDateval"
                                                 text="{path: 'Endate', formatter: '.formatDate'}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idparkinghisexitDateval"
                                                 text="{Exdate}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idassignhisstatusval"
                                                 text="{Delivery}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idparkingvendorvalue"
                                                 text="{Vendorname}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idtextiward"
                                                 text="{Slotno}"
                                             />
@@ -466,6 +522,7 @@
                                             class="sapUiSmallMargin"
                                         >
                                             <Button
+                                                class="boldButton"
                                                 id="idScannerButton"
                                                 icon="sap-icon://bar-code"
                                                 press="onScanner"
@@ -478,11 +535,13 @@
                                             />
 
                                             <Button
+                                                class="boldButton"
                                                 id="idkkscancel"
                                                 press="onSearching"
                                                 icon="sap-icon://search"
                                             />
                                             <Button
+                                                class="boldButton"
                                                 id="issserach"
                                                 press="onClearsinput"
                                                 type="Negative"
@@ -497,27 +556,31 @@
                                             placeholder="Enter values here"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="idsimple"
                                             type="Negative"
                                             text="Left"
                                             press="onLeft"
                                         />
-                                        <Button
+                                        <!-- <Button class="boldButton"
                                             id="idsort2"
                                             text="sort"
                                             press="onSort"
-                                        />
+                                        /> -->
                                         <Button
+                                            class="boldButton"
                                             id="pdf1"
                                             icon="sap-icon://download"
                                             press="downloadpdf1"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="kkjsieed"
                                             text="Edit"
                                             press="onEditPress"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="ijhhjs"
                                             text="Cancel"
                                             visible="false"
@@ -530,12 +593,14 @@
                                         <Title
                                             id="idparkingvehlabel"
                                             text="VehicleNumber"
+                                            class="customTitle"
                                         />
                                     </Column>
                                     <Column id="idparkingdrivername">
                                         <Title
                                             id="idparkingdrivernametitle"
                                             text="Driver Name"
+                                            class="customTitle"
                                         />
                                     </Column>
 
@@ -543,6 +608,7 @@
                                         <Title
                                             id="idparkingenterDatetitle"
                                             text="Enter Date"
+                                            class="customTitle"
                                         />
                                     </Column>
                                     <!-- <Column id="idparkingexitDate">
@@ -556,18 +622,21 @@
                                         <Title
                                             id="idassignparkingidtitle"
                                             text="PakingSlotNo"
+                                            class="customTitle"
                                         />
                                     </Column>
                                     <Column id="idassignstatus">
                                         <Title
                                             id="idassignstatustitle"
                                             text="Delivery"
+                                            class="customTitle"
                                         />
                                     </Column>
                                     <Column id="idrvendorName">
                                         <Title
                                             id="idpvendornametitle"
                                             text="Vendor Name"
+                                            class="customTitle"
                                         />
                                     </Column>
                                 </columns>
@@ -576,18 +645,21 @@
                                     <ColumnListItem id="idcollist2">
                                         <cells>
                                             <Text
+                                                class="boldText14"
                                                 id="idparkingvehval"
                                                 text="{Truckno}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idparkingdrivernameval"
                                                 text="{Drivername}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idtruckenterDateval"
                                                 text="{path: 'Endate', formatter: '.formatDate'}"
                                             />
-                                            <!-- <Text
+                                            <!-- <Text  class="boldText14"
                                                 id="idparkingexitDateval"
                                                 text="{exitDate}"
                                             /> -->
@@ -614,10 +686,12 @@
                                                 </Select>
                                             </VBox>
                                             <Text
+                                                class="boldText14"
                                                 id="idinboundinward"
                                                 text="{Delivery}"
                                             />
                                             <Text
+                                                class="boldText14"
                                                 id="idparkingvendorde"
                                                 text="{Vendorname}"
                                             />
@@ -712,6 +786,7 @@
                                         text=""
                                     />
                                     <Button
+                                        class="boldButton"
                                         id="idGoButtonValue"
                                         text="Go"
                                         type="Emphasized"
@@ -728,6 +803,7 @@
                                         text=""
                                     />
                                     <Button
+                                        class="boldButton"
                                         id="idClearFilterButtonValue"
                                         text="Clear Filter"
                                         type="Negative"
@@ -756,6 +832,7 @@
                                     />
                                     <ToolbarSpacer id="idtoolReserve" />
                                     <Button
+                                        class="boldButton"
                                         id="idParkinSlotAdd"
                                         text="Add"
                                         press="onAdd1"
@@ -763,6 +840,7 @@
                                         type="Success"
                                     />
                                     <Button
+                                        class="boldButton"
                                         id="idParkinSlotEdit"
                                         text="Delete"
                                         press="onDelete"
@@ -770,16 +848,18 @@
                                         type="Negative"
                                     />
                                     <Button
+                                        class="boldButton"
                                         id="iiirefresh"
-                                        press="onree"
-                                        icon="sap-icon://refresh"
+                                        press="OnEditss"
+                                        icon="sap-icon://edit"
                                     />
-                                    <Button
+                                    <!-- <Button class="boldButton"
                                         id="idsort3"
                                         text="sort"
                                         press="onSort"
-                                    />
+                                    /> -->
                                     <Button
+                                        class="boldButton"
                                         id="iddvisual"
                                         text="Visualization"
                                         press="showSlots"
@@ -791,6 +871,7 @@
                                     <Title
                                         id="parkingveh_text"
                                         text="ParkingSlot"
+                                        class="customTitle11"
                                     />
                                 </Column>
                                 <!-- <Column id="idparkingveh_length">
@@ -803,12 +884,14 @@
                                     <Title
                                         id="iddeltype"
                                         text="Delivery Type"
+                                        class="customTitle11"
                                     />
                                 </Column>
                                 <Column id="idparkingavailability">
                                     <Title
                                         id="idavailabilitystatus"
                                         text="Status"
+                                        class="customTitle11"
                                     />
                                 </Column>
                             </columns>
@@ -818,15 +901,17 @@
                                 <ColumnListItem id="idcollist">
                                     <cells>
                                         <Text
+                                            class="boldText14"
                                             id="parkingSlotvalue"
                                             text="{Slotno}"
                                         />
-                                        <!-- <Text
+                                        <!-- <Text  class="boldText14"
                                             id="parkinglengthvalue"
                                             text="{length}"
                                         /> -->
 
                                         <Text
+                                            class="boldText14"
                                             id="parkinginwarvalue"
                                             text="{Delivery}"
                                         />
@@ -882,16 +967,19 @@
 
                                         <ToolbarSpacer id="idtool1" />
                                         <Button
+                                            class="boldButton"
                                             id="idassign"
                                             text="Assign"
                                             press="onAssignPress"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="unassign"
                                             text="Clear"
                                             press="onUnassignPress"
                                         />
                                         <Button
+                                            class="boldButton"
                                             id="uioiuhbnkjn"
                                             press="oOpenDial"
                                             icon="sap-icon://print"
@@ -902,53 +990,64 @@
                                 <Label
                                     id="label1"
                                     text="Truck Number:"
+                                    class="customLabel"
                                 />
                                 <Input
                                     id="input1"
                                     liveChange=" TruckLiveChange"
                                     value="{}"
+                                    width="50%"
                                 />
 
                                 <Label
                                     id="idlabel7"
                                     text="Vendor Name:"
+                                    class="customLabel"
                                 />
                                 <Input
                                     id="idvalue7"
                                     value="{}"
                                     liveChange="DriverNameChange"
+                                    width="50%"
                                 />
                                 <Label
                                     id="idlabel8"
                                     text="Vendor Mobile"
+                                    class="customLabel"
                                 />
                                 <Input
                                     id="idvalue8"
                                     value="{}"
                                     liveChange="onMobileVal"
+                                    width="50%"
                                 />
                                 <Label
                                     id="label5"
                                     text="Driver Name:"
+                                    class="customLabel"
                                 />
                                 <Input
                                     id="input5"
                                     value="{}"
                                     liveChange="DriverNameChange"
+                                    width="50%"
                                 />
                                 <Label
                                     id="label6"
                                     text="Driver Mobile"
+                                    class="customLabel"
                                 />
                                 <Input
                                     id="input6"
                                     value="{}"
                                     liveChange="onMobileVal"
+                                    width="50%"
                                 />
 
                                 <Label
                                     id="label3"
                                     text="Delivery:"
+                                    class="customLabel"
                                 />
                                 <HBox id="idHBox">
                                     <CheckBox
@@ -962,10 +1061,12 @@
                                     id="label4"
                                     text="Slot NO"
                                     textAlign="Begin"
+                                    class="customLabel"
                                 />
                                 <ComboBox
                                     id="_IDGenComboBox2"
                                     items="{path: '/PARKINGSLOTSSet'}"
+                                    width="50%"
                                 >
                                     <core:Item
                                         id="_IDGenItem2"
@@ -1034,6 +1135,7 @@
                                 >
                                     <Label id="idfillabel" />
                                     <Button
+                                        class="boldButton"
                                         id="idfilgo"
                                         text="Go"
                                         type="Emphasized"
@@ -1046,6 +1148,7 @@
                                 >
                                     <Label id="idclearlabels" />
                                     <Button
+                                        class="boldButton"
                                         id="idclearvaluesd"
                                         text="Clear"
                                         press="onClearFilter"
@@ -1070,6 +1173,7 @@
                                     />
                                     <ToolbarSpacer id="_IDGenToolbarSpacer1" />
                                     <Button
+                                        class="boldButton"
                                         id="pdf"
                                         icon="sap-icon://download"
                                         press="downloadpdf"
@@ -1077,7 +1181,7 @@
                                     <Button
                                         id="_IDGenButton1"
                                         class="sapUiSmallMarginBeginEnd"
-                                        type="Reject"
+                                        type="Negative"
                                         icon="sap-icon://delete"
                                         text="Delete"
                                         press="onDeletes1"
@@ -1099,21 +1203,24 @@
                                         press="onAddLoan"
                                     />
                                     <Button
+                                        class="boldButton"
                                         id="jdjhajkjajkjhgh"
                                         icon="sap-icon://decline"
                                         press="onCLS"
                                         visible="false"
                                     />
-                                    <Button
+                                    <!-- <Button class="boldButton"
                                         id="idsort4"
                                         text="sort"
                                         press="onSort"
-                                    />
+                                    /> -->
                                     <Button
+                                        class="boldButton"
                                         id="idactionbuttons12"
                                         press="editbutton"
-                                        type="Accept"
+                                        type="Emphasized"
                                         text="Edit"
+                                        icon="sap-icon://edit"
                                     />
                                 </OverflowToolbar>
                             </headerToolbar>
@@ -1122,42 +1229,49 @@
                                     <Title
                                         id="trucknumber"
                                         text="TruckNumber"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="iddrivername">
                                     <Title
                                         id="driverName"
                                         text="DriverName"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="idreservedrivermobile">
                                     <Title
                                         id="drivermobile"
                                         text="DriverMobile"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="idres_staus">
                                     <Title
                                         id="res_staus"
                                         text="Vendorname"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="idParkingLot_ID">
                                     <Title
                                         id="parkinglotid"
                                         text="PakingSlot"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="idConfDate">
                                     <Title
                                         id="idconfdate"
                                         text="ConfirmDate"
+                                        class="customTitle"
                                     />
                                 </Column>
                                 <Column id="iddeliverytypess">
                                     <Title
                                         id="iddeliverytypess132"
                                         text="Delivery"
+                                        class="customTitle"
                                     />
                                 </Column>
                             </columns>
@@ -1170,18 +1284,22 @@
                                 >
                                     <cells>
                                         <Text
+                                            class="boldText14"
                                             id="ReservedParkingTruck"
                                             text="{Truckno}"
                                         />
                                         <Text
+                                            class="boldText14"
                                             id="ReservedParkingvalue"
                                             text="{Drivername}"
                                         />
                                         <Text
+                                            class="boldText14"
                                             id="ReserveddriverNum"
                                             text="{Drivermobile}"
                                         />
                                         <Text
+                                            class="boldText14"
                                             id="ReservedParkingstatus"
                                             text="{Vendorname}"
                                         />
@@ -1208,10 +1326,12 @@
                                             </Select>
                                         </VBox>
                                         <Text
+                                            class="boldText14"
                                             id="ReservedParkingConfDate"
                                             text="{path:'Rcdate', formatter: '.formatDate'}"
                                         />
                                         <Text
+                                            class="boldText14"
                                             id="idddeelvoidleej"
                                             text="{Delivery}"
                                         />

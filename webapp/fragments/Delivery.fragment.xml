@@ -1,0 +1,61 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Dialog
+        id="idEditingslot"
+        title="Slot Delivery  Change"
+    >
+        <beginButton>
+            <Button
+                id="sloteditbutton"
+                text="Save"
+                press="onSaves"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="ideditscancel"
+                text="Cancel"
+                press="onEditCancel"
+            />
+        </endButton>
+        <content>
+            <f:SimpleForm id="idformedit">
+                <f:content>
+                    <Label
+                        id="idSLotnumberedit"
+                        text="Slot Number:"
+                        width="33%"
+                    />
+                    <Input
+                        id="idSlotnumbervalue"
+                        value="{  }"
+                        width="33%"
+                    />
+                    <Label
+                        id="iddeliveryteypeedit"
+                        text="Delivery"
+                        width="33%"
+                    />
+                    <Input
+                        id="idDeliveryeditvalue"
+                        value="{}"
+                        width="33%"
+                    />
+                    <Label
+                        id="idSataustslotedit"
+                        text="Status"
+                        width="33%"
+                    />
+                    <Input
+                        id="idStatusslotchange"
+                        value=""
+                        width="33%"
+                    />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -108,7 +108,7 @@ _processParkignVehData: function(aItems) {
         }
 
         // Count entries based on direction (inbound or outbound)
-        if (item.inbound) {
+        if (item.Delivery === 'Inbound') {
             oData[formattedDate].timeSlots[formattedTime].inwardCount++;
         } else {
             oData[formattedDate].timeSlots[formattedTime].outwardCount++;

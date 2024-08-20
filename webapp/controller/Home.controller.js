@@ -100,50 +100,50 @@ sap.ui.define([
                 var oView = this.getView();
                 var oOutbox = oView.byId("_IDOutboundCheckBox");
                 var oDlv;
-
+            
                 if (!oOutbox) {
                     console.error("Outbound CheckBox not found.");
                     return;
                 }
-
+            
                 // Determine delivery type based on checkbox selection
                 oDlv = oOutbox.getSelected() ? 'Outbound' : 'Inbound';
                 console.log("Delivery type:", oDlv);
-
+            
                 // Create filters
                 var aFilters = [
-                    new Filter('Delivery', FilterOperator.EQ, oDlv),
-                    new Filter('Status', FilterOperator.EQ, 'Available')
+                    new sap.ui.model.Filter('Delivery', sap.ui.model.FilterOperator.EQ, oDlv),
+                    new sap.ui.model.Filter('Status', sap.ui.model.FilterOperator.EQ, 'Available')
                 ];
                 console.log("Filters:", aFilters);
-
+            
                 // Get the ComboBox and its binding
                 var oSelect = oView.byId("_IDGenComboBox2");
                 if (!oSelect) {
                     console.error("ComboBox not found.");
                     return;
                 }
-
+            
                 var oBinding = oSelect.getBinding("items");
                 if (!oBinding) {
                     console.error("ComboBox binding not found.");
                     return;
                 }
-
+            
                 // Apply filters to the binding
                 oBinding.filter(aFilters);
                 oBinding.refresh(); // Ensure binding is refreshed
-
+            
                 // Optional: Log the filtered items in the ComboBox for debugging
                 var aItems = oSelect.getItems();
                 console.log("Items after filter:", aItems.map(item => item.getText()));
             },
-
+            
             onTruckTypeSelect: function () {
                 // Call the function to apply filters whenever the checkbox state changes
                 this.applyFilters();
             },
-            /*Parking Slot Fragment Load For creating Fragment */
+              /*Parking Slot Fragment Load For creating Fragment */
             onAdd1: async function () {
                 this.oDialog1 ??= await this.loadFragment({
                     name: "com.app.parkapplication.fragments.NewSLotCreate"
@@ -332,7 +332,7 @@ sap.ui.define([
                 debugger
                 const toNumber = ss; // Replace with recipient's phone number
                 const fromNumber = '+18149043908'; // Replace with your Twilio phone number
-                const messageBody = `Hello ${osel.vendorName} your Reservation parking Slot ${osel.parkinglot_id} for truck ${osel.truckNo} is confirmed!!`; // Message content
+                const messageBody = `Your reservation for parking slot ${osel.parkinglot_id} for truck ${osel.truckNo} has been confirmed!`; // Message content
 
                 // Twilio API endpoint for sending messages
                 const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
@@ -535,10 +535,10 @@ sap.ui.define([
             onSearchParking: function (oEvent) {
                 var sQuery = oEvent.getSource().getValue();
                 if (sQuery && sQuery.length > 0) {
-                    var oTruckNo = new Filter("Truckno", FilterOperator.Contains, sQuery);
-                    var oDriverName = new Filter("Drivername", FilterOperator.Contains, sQuery);
-                    var oVendorName = new Filter("Vendorname", FilterOperator.Contains, sQuery);
-                    var oParkingLotId = new Filter("Slotno", FilterOperator.Contains, sQuery);
+                    var oTruckNo = new Filter("Truckno", FilterOperator.EQ, sQuery);
+                    var oDriverName = new Filter("Drivername", FilterOperator.EQ, sQuery);
+                    var oVendorName = new Filter("Vendorname", FilterOperator.EQ, sQuery);
+                    var oParkingLotId = new Filter("Slotno", FilterOperator.EQ, sQuery);
                     var aFilter = new Filter([oTruckNo, oDriverName, oParkingLotId, oVendorName])
                 }
                 this.getView().byId("idParkingvehiclestable").getBinding("items").filter(aFilter);
@@ -594,14 +594,14 @@ sap.ui.define([
                         success: function () {
                             oModel.refresh(true);
                             that.byId("idparkingslottable").getBinding("items").refresh(true);
-
+                            that.onBellText();
                             that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
                             // Update ParkignVeh to mark vehicle as unassigned
                             oModel.update("/ASSIGNEDSLOTSSet('" + osel.Assignedno + "')", leftModel.getData(), {
                                 success: function () {
                                     that.byId("idParkingvehiclestable").getBinding("items").refresh(); // Refresh table binding
                                     that.byId("idparkingslottable").getBinding("items").refresh(true);
-
+                                    that.onBellText();
                                     that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
                                     sap.m.MessageToast.show("Vehicle left from the parking area.");
                                     oModel.refresh(true);
@@ -867,7 +867,7 @@ sap.ui.define([
                                 debugger
                                 const toNumber = ss; // Replace with recipient's phone number
                                 const fromNumber = '+18149043908'; // Replace with your Twilio phone number
-                                const messageBody = `Hello ${oVendor} your Reservation parking Slot ${oParkingLotId} for truck ${oTruckNo} is confirmed!!`; // Message content
+                                const messageBody = `Your reservation for parking slot ${oParkingLotId} for truck ${oTruckNo} has been confirmed!`; // Message content
 
                                 // Twilio API endpoint for sending messages
                                 const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
@@ -907,6 +907,7 @@ sap.ui.define([
                                         };
                                         that.getView().byId("idParkingvehiclestable").getBinding("items").refresh(true);
                                         oModel.refresh(true)
+                                        that.onBellText();
                                         that.getView().byId("parkingLotSelect").getBinding("items").refresh();
                                         return that.updateData(oModel, oParkingslotpayload, "/ParkingLot('" + oParkingLotId + "')");
                                         oModel.refresh(true);
@@ -916,6 +917,7 @@ sap.ui.define([
                                         that.getView().byId("idParkingvehiclestable").getBinding("items").refresh(true);
                                         oModel.refresh(true);
                                         that.oRefreshButton();
+                                        that.onBellText();
                                         sap.m.MessageToast.show("Vehicle assigned to parking slot successfully!");
                                         oModel.refresh(true);
                                         that.getView().byId("_IDGenComboBox2").getBinding("items").refresh();
@@ -1141,6 +1143,14 @@ sap.ui.define([
                         oSel.getCells()[4].getItems()[0].setVisible(false); // Assuming Text is at index 0
                         oSel.getCells()[4].getItems()[1].setVisible(true);  // Assuming ComboBox is at index 1
                         oSel.getCells()[4].getItems()[1].setEditable(true);
+
+                        var odel = oSel.getCells()[5].getText();
+                        if (odel === 'Inbound') {
+
+                        } else {
+
+                        }
+
                     } else {
                         oButton.setText("Edit");
                         if (oButton.getText() === 'Edit')
@@ -1364,7 +1374,7 @@ sap.ui.define([
                         // Create a link element to download the image
                         var downloadLink = document.createElement('a');
                         downloadLink.href = dataUrl;
-                        downloadLink.download = 'fullscreenshot.png';
+                        downloadLink.download = 'AllocatedForm.png';
                         downloadLink.style.display = 'none';
 
                         // Append the link to the DOM, click it to start the download, then remove it
@@ -1635,6 +1645,75 @@ sap.ui.define([
                 oBinding.getContexts().forEach(function (context) {
                     console.log("Filtered Item:", context.getObject());
                 });
+            },
+            OnEditss: async function () {
+
+            },
+            onSort111: function(oEvent) {
+                var oSelect = this.getView().byId("idreservependingtable").getSelectedItem();
+            
+                if (oSelect) {
+                    var oButton = oEvent.getSource();
+                    var sButtonText = oButton.getText();
+                    var oModel = this.getView().getModel();
+                    var that = this;
+            
+                    if (sButtonText === "Edit") {
+                        oButton.setText("Submit");
+                        this.byId("idrefres").setVisible(true);
+                        var obj = oSelect.getBindingContext().getObject();
+                        
+                        // Toggle visibility of items in the selected cell
+                        oSelect.getCells()[6].getItems()[0].setVisible(false);
+                        oSelect.getCells()[6].getItems()[1].setVisible(true);
+                    } else {
+                        oButton.setText("Edit");
+                        this.byId("idrefres").setVisible(false);
+                        
+                        var obj = oSelect.getBindingContext().getObject();
+                        oSelect.getCells()[6].getItems()[0].setVisible(true);
+                        oSelect.getCells()[6].getItems()[1].setVisible(false);
+                        
+                        var t = obj.Reserveno;
+                        var oc = oSelect.getCells()[6].getItems()[1].getSelectedKey();
+                        
+                        // Update the model with new slot number
+                        oModel.update("/ReservedSlotsSet('" + t + "')", { Slotno: oc }, {
+                            success: function(odata) {
+                                // Update parking slot status
+                                oModel.update("/PARKINGSLOTSSet('" + oc + "')", { Status: 'Reserved' }, {
+                                    success: function(odata) {
+                                        // Refresh model and UI
+                                        oModel.refresh(true);
+                                        that.oRefreshButton();
+                                        console.log("Model refreshed");
+                                        that.onBellText();
+                                        that.getView().byId("idparkingslottable").getBinding("items").refresh(true);
+                                    },
+                                    error: function(oError) {
+                                        // Handle error
+                                    }
+                                });
+                            },
+                            error: function(oError) {
+                                // Handle error
+                            }
+                        });
+                    }
+                } else {
+                    // Show error message if no row is selected
+                    MessageBox.error("Please select at least one row for assigning a slot!");
+                }
+            },            
+            onCancel111: function () {
+                this.byId("idsorter").setText("Edit");
+                this.byId("idrefres").setVisible(false);
+                var oSelect = this.getView().byId("idreservependingtable").getSelectedItem();
+                const oObject = oSelect.getBindingContext().getObject();
+                this.oRefreshButton();
+                this.onBellText();
+                oSelect.getCells()[6].getItems()[0].setVisible(true);
+                oSelect.getCells()[6].getItems()[1].setVisible(false);
             }
 
         });

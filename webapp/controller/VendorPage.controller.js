@@ -5,7 +5,7 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/MessageBox"
 ],
-    function (Controller, Filter, FilterOperator, Fragment,MessageBox) {
+    function (Controller, Filter, FilterOperator, Fragment, MessageBox) {
         "use strict";
 
         return Controller.extend("com.app.parkapplication.controller.VendorPage", {
@@ -32,85 +32,96 @@ sap.ui.define([
                     oDriverMob = this.byId("idvenddrivermob").getValue(),
                     oVendorName = this.byId("idvednorval").getValue(),
                     oinbound = this.byId("inwards").getSelectedKey(),
-                    oparkingid = this.byId("parkingLotSelect121").getSelectedKey();
-                    if(!oTruckNo || !oDriverName || !oDriverMob  || !oVendorName || !oinbound || !oparkingid)
-                        {
-                            MessageBox.error("Please enter All values")
-                        }
-                        else{
+                    oparkingid = this.byId("idreservedEstimatedDate").getValue();
+                const inputDate = oparkingid;
+                const [month, day, year] = inputDate.split('/');
+                const fullYear = `20${year}`;
 
                 // Create a new Date object
-                var currentDate = new Date();
+                const date = new Date(fullYear, month - 1, day);
 
-                // Extract date components
-                var exitDate1 = currentDate.getFullYear() + '-' +
-                    ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
-                    ('0' + currentDate.getDate()).slice(-2);
+                // Format the date to YYYY-MM-DD
+                const formattedDate = date.toISOString().slice(0, 10);
+                // oparkingid = this.byId("parkingLotSelect121").getSelectedKey();
+                if (!oTruckNo || !oDriverName || !oDriverMob || !oVendorName || !oinbound || !oparkingid) {
+                    MessageBox.error("Please enter All values")
+                }
+                else {
 
-                // Extract time components
-                var exitTime1 = ('0' + currentDate.getHours()).slice(-2) + ':' +
-                    ('0' + currentDate.getMinutes()).slice(-2) + ':' +
-                    ('0' + currentDate.getSeconds()).slice(-2);
-                debugger
-                const oModel = this.getOwnerComponent().getModel();
-                const oSample = new sap.ui.model.json.JSONModel({
-                    Truckno: oTruckNo,
-                    Drivername: oDriverName,
-                    Drivermobile: oDriverMob,
-                    Rsdate: exitDate1,
-                    Rstime: exitTime1,
-                    Rcdate: "",
-                    Rctime: "",
-                    Vendorname: oVendorName,
-                    Delivery: oinbound,
-                    Slotno: oparkingid
-                });
-                this.getView().setModel(oSample, "oSample")
-                var msg = `Reservation request came from ${oVendorName} vendor on ${exitDate1} at ${exitTime1} for parkingslot ${oparkingid}`;
-                // json model for notifications
-                const oNotification = new sap.ui.model.json.JSONModel({
-                    Vendorname: oVendorName,
-                    Slotno: oparkingid,
-                    Truckno: oTruckNo,
-                    Delivery: oinbound,
-                    Message: msg
-                })
-                this.getView().setModel(oNotification, "oNotification")
-                var oid = oparkingid.split(' ').join('');
-                console.log(oNotification);
-                console.log(oNotification.getData());
-                debugger
-                var that = this;
-                oModel.create("/ReservedSlotsSet", oSample.getData(), {
-                    success: function (odata) {
-                        sap.m.MessageToast.show("Successfully Reserved!!!!!");
-                        // .oDialog.close();
-                        that.byId("idresevednd").close();
-                        console.log("succcessfully Reserved!!!!");
-                        oModel.refresh(true);
-                        oModel.update("/PARKINGSLOTSSet('" + oid + "')", { Status: 'Reserved' }, {
-                            success: function (odata) {
-                                // that.getView().byId("idparkingslottable").getBinding("items").refresh();
+                    // Create a new Date object
+                    var currentDate = new Date();
 
-                                oModel.create("/NOTIFICATIONSSet", oNotification.getData()
-                                    , {
-                                        success: function (odata) {
-                                            sap.m.MessageToast.show("Request Notification sent!!!");
-                                        },
-                                        error: function (oError) {
-                                            sap.m.MessageBox.error("Error!!!");
+                    // Extract date components
+                    var exitDate1 = currentDate.getFullYear() + '-' +
+                        ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + currentDate.getDate()).slice(-2);
 
-                                        }
-                                    })
-                            }, error: function (oError) {
-                                sap.m.MessageBox.error("Error !!");
-                            }
-                        })
-                    }, error: function (oError) {
-                        sap.m.MessageBox.error("Error !!");
-                    }
-                })
-            }
+                    // Extract time components
+                    var exitTime1 = ('0' + currentDate.getHours()).slice(-2) + ':' +
+                        ('0' + currentDate.getMinutes()).slice(-2) + ':' +
+                        ('0' + currentDate.getSeconds()).slice(-2);
+                    debugger
+                    const oModel = this.getOwnerComponent().getModel();
+                    const oSample = new sap.ui.model.json.JSONModel({
+                        Truckno: oTruckNo,
+                        Drivername: oDriverName,
+                        Drivermobile: oDriverMob,
+                        Rsdate: exitDate1,
+                        Rstime: exitTime1,
+                        Rcdate: "",
+                        Rctime: "",
+                        Vendorname: oVendorName,
+                        Delivery: oinbound,
+                        Redate: formattedDate
+                    });
+                    this.getView().setModel(oSample, "oSample")
+                    var msg = ` A reservation request has been received from ${oVendorName} on ${exitDate1} at ${exitTime1}. The arrival date for this reservation is scheduled for ${formattedDate} `; 
+                   
+                    /* for parkingslot ${oparkingid}`; */
+                    // json model for notifications
+                    const oNotification = new sap.ui.model.json.JSONModel({
+                        Vendorname: oVendorName,
+                        //Slotno: oparkingid,
+                        Truckno: oTruckNo,
+                        Delivery: oinbound,
+                        Message: msg
+                    })
+                    this.getView().setModel(oNotification, "oNotification")
+                    var oid = oparkingid.split(' ').join('');
+                    console.log(oNotification);
+                    console.log(oNotification.getData());
+                    debugger
+                    var that = this;
+                    oModel.create("/ReservedSlotsSet", oSample.getData(), {
+                        success: function (odata) {
+                            sap.m.MessageToast.show("Successfully Reserved!!!!!");
+                            // .oDialog.close();
+                            that.byId("idresevednd").close();
+                            console.log("succcessfully Reserved!!!!");
+                            oModel.refresh(true);
+                            // oModel.update("/PARKINGSLOTSSet('" + oid + "')", { Status: 'Reserved' }, {
+                            //     success: function (odata) {
+                            //         // that.getView().byId("idparkingslottable").getBinding("items").refresh();
+
+                            oModel.create("/NOTIFICATIONSSet", oNotification.getData()
+                                , {
+                                    success: function (odata) {
+                                        sap.m.MessageToast.show("Request Notification sent!!!");
+                                    },
+                                    error: function (oError) {
+                                        sap.m.MessageBox.error("Error!!!");
+
+                                    }
+                                })
+                            //     }, error: function (oError) {
+                            //         sap.m.MessageBox.error("Error !!");
+                            //     }
+                            // })
+                        }, error: function (oError) {
+                            sap.m.MessageBox.error("Error !!");
+                        }
+                    })
+                }
 
             },
             onMobileVal: async function (oEvent) {
@@ -165,40 +176,40 @@ sap.ui.define([
             //  onAfterRendering:function(){
             //         this.onDeliveryChange();
             //  },
-    
+
             onDeliveryChange: function (oEvent) {
                 // Get selected key
-                var sSelectedKey = oEvent.getSource().getSelectedKey();
-                console.log("Selected Delivery Type:", sSelectedKey);
-    
-                // Create filters
-                var aFilters = [];
-                if (sSelectedKey) {
-                    aFilters.push(new Filter('Delivery', FilterOperator.EQ, sSelectedKey));
-                }
-                aFilters.push(new Filter('Status', FilterOperator.EQ, 'Available'));
-    
-                // Get the Select control
-                var oParkingSlotSelect = this.byId("parkingLotSelect121");
-                if (!oParkingSlotSelect) {
-                    console.error("Parking Slot Select control not found.");
-                    return;
-                }
-    
-                // Get the binding of the Select control
-                var oBinding = oParkingSlotSelect.getBinding("items");
-                if (!oBinding) {
-                    console.error("Binding not found for Parking Slot Select.");
-                    return;
-                }
-    
-                // Apply filters
-                oBinding.filter(aFilters);
-    
-                // Optional: Log filtered items
-                oBinding.getContexts().forEach(function (context) {
-                    console.log("Filtered Item:", context.getObject());
-                });
+                // var sSelectedKey = oEvent.getSource().getSelectedKey();
+                // console.log("Selected Delivery Type:", sSelectedKey);
+
+                // // Create filters
+                // var aFilters = [];
+                // if (sSelectedKey) {
+                //     aFilters.push(new Filter('Delivery', FilterOperator.EQ, sSelectedKey));
+                // }
+                // aFilters.push(new Filter('Status', FilterOperator.EQ, 'Available'));
+
+                // // Get the Select control
+                // var oParkingSlotSelect = this.byId("parkingLotSelect121");
+                // if (!oParkingSlotSelect) {
+                //     console.error("Parking Slot Select control not found.");
+                //     return;
+                // }
+
+                // // Get the binding of the Select control
+                // var oBinding = oParkingSlotSelect.getBinding("items");
+                // if (!oBinding) {
+                //     console.error("Binding not found for Parking Slot Select.");
+                //     return;
+                // }
+
+                // // Apply filters
+                // oBinding.filter(aFilters);
+
+                // // Optional: Log filtered items
+                // oBinding.getContexts().forEach(function (context) {
+                //     console.log("Filtered Item:", context.getObject());
+                // });
             }
-                });
+        });
     });

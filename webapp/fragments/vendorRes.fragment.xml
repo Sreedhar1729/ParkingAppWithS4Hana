@@ -76,7 +76,6 @@
                     id="inwards"
                     selectedKey="{Delivery}"
                     change="onDeliveryChange"
-                     
                 >
                     <items>
                         <core:Item
@@ -96,7 +95,7 @@
                         />
                     </items>
                 </Select>
-                <Label
+                <!-- <Label
                     id="idParkingslotLabels123"
                     text="Parking Slot Numbers"
                 />
@@ -110,7 +109,16 @@
                         key="{Slotno}"
                         text="{Slotno}"
                     />
-                </Select>
+                </Select> -->
+
+                <Label
+                    id="idparkingEstDate"
+                    text="Edit"
+                />
+                <DatePicker
+                    id="idreservedEstimatedDate"
+                    value=""
+                />
             </form:SimpleForm>
         </content>
     </Dialog>
