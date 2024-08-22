@@ -683,7 +683,7 @@
                                                     visible="true"
                                                     type="Text"
                                                 />
-                                                <Select
+                                                <ComboBox
                                                     id="parkingLotSelect1"
                                                     required="true"
                                                     visible="false"
@@ -695,7 +695,7 @@
                                                         key="{Slotno}"
                                                         text="{Slotno}"
                                                     />
-                                                </Select>
+                                                </ComboBox>
                                             </VBox>
                                             <Text
                                                 class="boldText14"
@@ -1260,7 +1260,7 @@
                                                 visible="true"
                                                 type="Text"
                                             />
-                                            <Select
+                                            <ComboBox
                                                 id="parkingLotSelect1js"
                                                 required="true"
                                                 visible="false"
@@ -1272,7 +1272,7 @@
                                                     key="{Slotno}"
                                                     text="{Slotno}"
                                                 />
-                                            </Select>
+                                            </ComboBox>
                                         </VBox>
                                         <Text
                                             class="boldText14"

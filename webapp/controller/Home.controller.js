@@ -577,7 +577,7 @@ sap.ui.define([
             },
 
             /**Searching Truck in Assignes slots */
-            onSearching:async function (oEvent) {
+            onSearching: async function (oEvent) {
                 // var otno = this.byId("idMat").getValue();
                 // var oagg = this.byId("idParkingvehiclestable").getBinding("items");
                 // if (otno) {
@@ -1324,69 +1324,124 @@ sap.ui.define([
             // editing code
             editbutton: function (oEvent) {
                 var oSel = this.byId("idReserveParkingtable").getSelectedItem();
-                if (oSel) {
-                    var oButton = oEvent.getSource();
-                    var sButtonText = oButton.getText();
-                    if (sButtonText === "Edit") {
-                        oButton.setText("Submit");
-                        this.byId("jdjhajkjajkjhgh").setVisible(true);
-                        const oObject = oSel.getBindingContext().getObject();
-                        var odel = oSel.getCells()[6].getText();
-                        oSel.getCells()[4].getItems()[0].setVisible(false); // Assuming Text is at index 0
-                        oSel.getCells()[4].getItems()[1].setVisible(true);  // Assuming ComboBox is at index 1
-                        oSel.getCells()[4].getItems()[1].setEditable(true);
-                    } else {
-                        oButton.setText("Edit");
-                        if (oButton.getText() === 'Edit')
-                            // this.byId("ijhhjs").setVisible(false);
-                            this.byId("jdjhajkjajkjhgh").setVisible(false);
-
-                        const oObject = oSel.getBindingContext().getObject();
-                        oSel.getCells()[4].getItems()[0].setVisible(true);
-                        oSel.getCells()[4].getItems()[1].setVisible(false);
-                        oSel.getCells()[4].getItems()[1].setEditable(false);
-
-                        var t = oSel.getCells()[4].getItems()[0].getValue();  // Get Text value
-                        var oInput = oSel.getCells()[4].getItems()[1].getSelectedKey();  // Get ComboBox selected key
-                        var oID = oObject.Reserveno;  // Assuming id is directly
-                        var oModel = this.getView().getModel();
-                        var that = this;
-                        oModel.update("/ReservedSlotsSet('" + oID + "')", { Slotno: oInput }, {
-                            success: function (odata) {
-                                oModel.refresh(true);
-                                that.getView().byId("idReserveParkingtable").getBinding("items").refresh(true);
-                                oModel.update("/PARKINGSLOTSSet('" + t + "')", { Status: 'Available' }, {
-                                    success: function () {
-                                        sap.m.MessageToast.show("Successfully update the slot status");
-                                        oModel.refresh(true);
-                                        that.onBellText();
-                                        that.getView().byId("idparkingslottable").getBinding("items").refresh(true);
-                                        oModel.update("/PARKINGSLOTSSet('" + oInput + "')", { Status: 'Reserved' }, {
-                                            success: function (odata) {
-                                                sap.m.MessageToast.show("successfully updaed!!");
-                                                oModel.refresh(true);
-                                                that.getView().byId("idparkingslottable").getBinding("items").refresh(true);
-                                            }.bind(that)
-                                            , error: function (oError) {
-                                                sap.m.MessageBox.error(oError);
-                                            }
-                                        })
-                                    }.bind(that),
-                                    error: function (oError) {
-                                        sap.m.MessageBox.error(oError);
-                                    }
-                                })
-                            }.bind(that),
-                            error: function (oError) {
-                                alert(oError);
-                            }
-                        })
-                    }
-                } else {
-                    sap.m.MessageBox.error("Please select at least one item.");
-                    this.byId("jdjhajkjajkjhgh").setVisible(false);
+                if (!oSel) {
+                    sap.m.MessageToast.show("Please select a slot to edit.");
                     return;
                 }
+
+                var oButton = oEvent.getSource();
+                var sButtonText = oButton.getText();
+                var oContext = oSel.getBindingContext();
+                var oObject = oContext.getObject();
+                var sServiceType = oObject.Delivery; // Get the delivery service type of the selected item
+
+                // Get the cells and control references
+                var aCells = oSel.getCells();
+                var oComboBox = aCells[4].getItems()[1]; // Assuming ComboBox is at index 1
+                var oInput = aCells[4].getItems()[0]; // Assuming Input is at index 0
+                var oModel = this.getView().getModel();
+
+                if (sButtonText === "Edit") {
+                    // Switch to submit mode
+                    oButton.setText("Submit");
+                    this.byId("jdjhajkjajkjhgh").setVisible(true);
+
+                    // Filter the ComboBox items based on the service type
+                    this._filterAvailableSlotsByServiceType(oComboBox, sServiceType);
+
+                    // Toggle visibility of controls in the selected row
+                    aCells.forEach(function (oCell) {
+                        var aItems = oCell.getItems ? oCell.getItems() : [];
+                        aItems.forEach(function (oItem) {
+                            if (oItem instanceof sap.m.Text) {
+                                oItem.setVisible(false); // Hide text items
+                            } else if (oItem instanceof sap.m.Input) {
+                                oItem.setVisible(false); // Show input or combo box
+                            }
+                            else if (oItem instanceof sap.m.ComboBox) {
+                                oItem.setVisible(true); // Show input or combo box
+                            }
+                        });
+                    });
+
+                } else {
+                    // Switch back to edit mode
+                    oButton.setText("Edit");
+                    this.byId("jdjhajkjajkjhgh").setVisible(false);
+
+                    // Toggle visibility of controls in the selected row
+                    aCells.forEach(function (oCell) {
+                        var aItems = oCell.getItems ? oCell.getItems() : [];
+                        aItems.forEach(function (oItem) {
+                            if (oItem instanceof sap.m.Text) {
+                                oItem.setVisible(false); // Show text items
+                            } else if (oItem instanceof sap.m.ComboBox) {
+                                oItem.setVisible(false); // Hide combo box
+                            } else if (oItem instanceof sap.m.Input) {
+                                oItem.setVisible(true); // Show input field
+                            }
+                        });
+                    });
+
+                    // Get values to update
+                    var oldSlotValue = oInput.getValue(); // Get Text value from Input
+                    var newSlotKey = oComboBox.getSelectedKey(); // Get ComboBox selected key
+                    var oID = oObject.Reserveno; // Assuming id is directly
+                    var that = this;
+                    // Update the Reserved Slots
+                    oModel.update("/ReservedSlotsSet('" + oID + "')", { Slotno: newSlotKey }, {
+                        success: function () {
+                            oModel.refresh(true);
+                            that.getView().byId("idReserveParkingtable").getBinding("items").refresh(true);
+
+                            // Update the status of the old slot
+                            oModel.update("/PARKINGSLOTSSet('"+oldSlotValue+"')", { Status: 'Available' }, {
+                                success: function () {
+                                    sap.m.MessageToast.show("Successfully updated the old slot status");
+                                    oModel.refresh(true);
+                                    that.onBellText();
+                                    that.getView().byId("idparkingslottable").getBinding("items").refresh(true);
+
+                                    // Update the status of the new slot
+                                    oModel.update("/PARKINGSLOTSSet('"+newSlotKey+"')", { Status: 'Reserved' }, {
+                                        success: function () {
+                                            sap.m.MessageToast.show("Successfully updated the new slot status");
+                                            oModel.refresh(true);
+                                            that.getView().byId("idparkingslottable").getBinding("items").refresh(true);
+                                        },
+                                        error: function (oError) {
+                                            sap.m.MessageBox.error("Error updating new slot status: " + oError.message);
+                                        }
+                                    });
+                                },
+                                error: function (oError) {
+                                    sap.m.MessageBox.error("Error updating old slot status: " + oError.message);
+                                }
+                            });
+                        },
+                        error: function (oError) {
+                            sap.m.MessageBox.error("Error updating reserved slot: " + oError.message);
+                        }
+                    });
+                }
+            },
+
+            // Filter ComboBox items based on the service type
+            _filterAvailableSlotsByServiceType: function (oComboBox, sServiceType) {
+                var oModel = this.getView().getModel();
+                var aFilters = [
+                    new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "Available"),
+                    new sap.ui.model.Filter("Delivery", sap.ui.model.FilterOperator.EQ, sServiceType)
+                ];
+
+                oComboBox.bindAggregation("items", {
+                    path: "/PARKINGSLOTSSet",
+                    template: new sap.ui.core.Item({
+                        key: "{Slotno}",
+                        text: "{Slotno}"
+                    }),
+                    filters: aFilters
+                });
             },
             onBeforeRendering: function () {
                 debugger
@@ -1793,16 +1848,41 @@ sap.ui.define([
             },
             /**Cancel the Reservations */
             onCLS: function () {
+                // Reset the button text to "Edit"
                 this.byId("idactionbuttons12").setText("Edit");
+
+                // Hide the additional action buttons or controls
                 this.byId("jdjhajkjajkjhgh").setVisible(false);
+
+                // Get the selected item
                 var oSel = this.byId("idReserveParkingtable").getSelectedItem();
+                if (!oSel) {
+                    sap.m.MessageToast.show("Please select a slot to close.");
+                    return;
+                }
+
+                // Get the binding context and object
                 const oObject = oSel.getBindingContext().getObject();
+
+                // Refresh button and other components as needed
                 this.oRefreshButton();
                 this.onBellText();
-                oSel.getCells()[4].getItems()[0].setVisible(true);
-                oSel.getCells()[4].getItems()[1].setVisible(false);
-                oSel.getCells()[4].getItems()[1].setEditable(false);
-            },
+
+                // Get the cells and control references
+                var aCells = oSel.getCells();
+                var oInput = aCells[4].getItems()[0]; // Assuming Input is at index 0
+                var oComboBox = aCells[4].getItems()[1]; // Assuming ComboBox is at index 1
+
+                // Set visibility for the controls
+                oInput.setVisible(true); // Show Input field
+                oComboBox.setVisible(false); // Hide ComboBox
+                //oComboBox.setEditable(false); // Ensure ComboBox is not editable
+
+                // Update any additional data or state as needed
+                // Example: Reset ComboBox selection if required
+                oComboBox.setSelectedKey(""); // Clear selected key
+            }
+            ,
             /**IN Reservation Slot change based on Delivery Type */
             onDeliveryChange1: function (oEvent) {
                 // Get selected key
@@ -2038,7 +2118,7 @@ sap.ui.define([
                 // var oSel = this.byId("idReserveParkingtable").getSelectedItem();
                 // var sServiceType = oSel.getCells()[6].getText();
                 // var oSlotsComboBox = this.getView().byId("parkingLotSelect1js");
- 
+
                 // // Create filters for service type and available status
                 // var aFilters = [
                 //     new Filter({
