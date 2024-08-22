@@ -76,7 +76,7 @@ _processParkignVehData: function(aItems) {
     var oData = {};
 
     aItems.forEach(function(item) {
-        var enterDateTimeString = item.enterDate + " " + item.enterTime;
+        var enterDateTimeString = item.Endate + " " + item.Entime;
         var enterDateTime = new Date(enterDateTimeString);
 
         // Format date part

@@ -199,6 +199,10 @@
                                         <ToolbarSpacer
                                             id="idreservertoolbarspacer"
                                         />
+                                        <Title
+                                            id="idcountReservedSlots"
+                                            text="Count::"
+                                        />
                                         <Button
                                             class="boldButton"
                                             id="idreserveconfirmation"
@@ -272,7 +276,11 @@
                                         />
                                     </Column>
                                     <Column id="oookkeesss">
-                                    <Title id="ooekejsse" text="Arriving Date" class="customTitle11" />
+                                        <Title
+                                            id="ooekejsse"
+                                            text="Arriving Date"
+                                            class="customTitle11"
+                                        />
                                     </Column>
                                 </columns>
                                 <items>
@@ -330,7 +338,11 @@
                                                     />
                                                 </Select>
                                             </VBox>
-                                            <Text id="oidekssdejje"   class="boldText14" text="{Redate}"></Text>
+                                            <Text
+                                                id="oidekssdejje"
+                                                class="boldText14"
+                                                text="{Redate}"
+                                            />
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -850,7 +862,7 @@
                                     <Button
                                         class="boldButton"
                                         id="iiirefresh"
-                                        press="OnEditss"
+                                        press="OnEditss1"
                                         icon="sap-icon://edit"
                                     />
                                     <!-- <Button class="boldButton"
@@ -1086,77 +1098,7 @@
                         height="100%"
                         class="sapUiContentPadding"
                     >
-                        <f:DynamicPageHeader id="iddynamicpageheader">
-                            <HBox
-                                id="idhh"
-                                alignContent="SpaceBetween"
-                                width="100vw"
-                            >
-                                <!-- <layout:VerticalLayout id="idverti"> -->
-                                <VBox
-                                    id="idverti"
-                                    class="sapUiSmallMarginEnd"
-                                >
-                                    <Label
-                                        id="iddylabeltruck"
-                                        text="Truck Number"
-                                    />
-                                    <MultiInput
-                                        id="iddytrucknumber"
-                                        value="{}"
-                                    />
-                                </VBox>
-                                <VBox
-                                    id="vetic"
-                                    class="sapUiSmallMarginEnd"
-                                >
-                                    <Label
-                                        id="iddylabelslot"
-                                        text="parking slot"
-                                    />
-                                    <MultiInput
-                                        id="iddyslotnumber"
-                                        value="{}"
-                                    />
-                                </VBox>
-                                <VBox
-                                    id="idve"
-                                    class="sapUiSmallMarginEnd"
-                                >
-                                    <Label
-                                        id="idmuldriverlabel"
-                                        text="DriverName"
-                                    />
-                                    <MultiInput id="iddrivermul" />
-                                </VBox>
-                                <VBox
-                                    id="idfilbutton1"
-                                    class="sapUiSmallMarginEnd"
-                                >
-                                    <Label id="idfillabel" />
-                                    <Button
-                                        class="boldButton"
-                                        id="idfilgo"
-                                        text="Go"
-                                        type="Emphasized"
-                                        press="onGoFilter"
-                                    />
-                                </VBox>
-                                <VBox
-                                    id="idvboxclearv"
-                                    class="sapUiSmallMarginEnd"
-                                >
-                                    <Label id="idclearlabels" />
-                                    <Button
-                                        class="boldButton"
-                                        id="idclearvaluesd"
-                                        text="Clear"
-                                        press="onClearFilter"
-                                    />
-                                </VBox>
-                                <!-- </layout:VerticalLayout> -->
-                            </HBox>
-                        </f:DynamicPageHeader>
+                        <!--  -->
                         <Table
                             id="idReserveParkingtable"
                             contextualWidth="Inherit"
@@ -1172,6 +1114,13 @@
                                         class="simple"
                                     />
                                     <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                                    <SearchField
+                                        id="idressearchfield"
+                                        liveChange="onSearch65"
+                                        width="20%"
+                                        placeholder="Search here"
+                                    />
+
                                     <Button
                                         class="boldButton"
                                         id="pdf"

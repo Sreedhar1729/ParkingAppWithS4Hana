@@ -113,7 +113,7 @@
 
                 <Label
                     id="idparkingEstDate"
-                    text="Edit"
+                    text="Arrival Date"
                 />
                 <DatePicker
                     id="idreservedEstimatedDate"

@@ -1,6 +1,6 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.ui.layout.form"
     xmlns="sap.m"
 >
     <Dialog
@@ -9,9 +9,10 @@
     >
         <beginButton>
             <Button
-                id="sloteditbutton"
+                id="sloteditbutton55"
                 text="Save"
                 press="onSaves"
+                type="Emphasized"
             />
         </beginButton>
         <endButton>
@@ -19,6 +20,7 @@
                 id="ideditscancel"
                 text="Cancel"
                 press="onEditCancel"
+                type="Negative"
             />
         </endButton>
         <content>
@@ -27,32 +29,57 @@
                     <Label
                         id="idSLotnumberedit"
                         text="Slot Number:"
-                        width="33%"
+                        width="55%"
                     />
-                    <Input
+                    <Text
                         id="idSlotnumbervalue"
-                        value="{  }"
-                        width="33%"
+                        text="{  }"
+                        width="55%"
                     />
                     <Label
                         id="iddeliveryteypeedit"
                         text="Delivery"
-                        width="33%"
+                        width="55%"
                     />
-                    <Input
+                    <Select
+                        id="inwards2111"
+                        required="true"
+                        selectedKey="{Delivery}"
+                        change="onDeliveryChange1"
+                    >
+                        <items>
+                            <core:Item
+                                id="iditeadms1211"
+                                text=" "
+                                key=""
+                            />
+                            <core:Item
+                                id="_IDGenItems112111"
+                                text="Inbound"
+                                key="Inbound"
+                            />
+                            <core:Item
+                                id="_IDGenItems112232"
+                                text="Outbound"
+                                key="Outbound"
+                            />
+                        </items>
+                    </Select>
+                    <!-- <Input
                         id="idDeliveryeditvalue"
                         value="{}"
-                        width="33%"
-                    />
+                        width="55%"
+                        editable="true"
+                    /> -->
                     <Label
                         id="idSataustslotedit"
                         text="Status"
-                        width="33%"
+                        width="55%"
                     />
-                    <Input
+                    <Text
                         id="idStatusslotchange"
-                        value=""
-                        width="33%"
+                        text=""
+                        width="55%"
                     />
                 </f:content>
             </f:SimpleForm>

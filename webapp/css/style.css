@@ -115,6 +115,14 @@ body.dark-mode {
  
 .temp{
     background-image: url("https://img.freepik.com/free-photo/truck-with-trailer-road_1340-32492.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Ensure the image does not repeat */
+    background-size: cover; /* Cover the entire viewport */
+    background-attachment: fixed; /* Keep the image fixed during scrolling */
+    margin: 0; /* Remove default body margin to avoid unexpected gaps */
+    padding: 0; /* Remove default body padding */
+    height: 100vh; /* Ensure body takes full viewport height */
+     
 }
 .customPopoverContent {
     width: 600px;
@@ -493,6 +501,14 @@ transition: background-color 0.3s ease; /* Smooth transition */
     background-color: rgba(255, 255, 255, .15);  
     backdrop-filter: blur(5px);
     background-image: url("https://img.freepik.com/free-photo/truck-with-trailer-road_1340-32492.jpg");
+   
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Ensure the image does not repeat */
+    background-size: cover; /* Cover the entire viewport */
+    background-attachment: fixed; /* Keep the image fixed during scrolling */
+    margin: 0; /* Remove default body margin to avoid unexpected gaps */
+    padding: 0; /* Remove default body padding */
+    height: 100vh; /* Ensure body takes full viewport height */
     
 }
 
@@ -517,7 +533,7 @@ transition: background-color 0.3s ease; /* Smooth transition */
     font-size: 18px; /* Make text bold */
 }
 
-.customTitle11 {
+.customTitle11,.simple {
     color: green; /* Example color: red */
     font-weight: bold;
     font-size: 18px; /* Make text bold */
@@ -532,4 +548,11 @@ transition: background-color 0.3s ease; /* Smooth transition */
     font-weight: bold;
     font-size: 16px;
     font-family: 'Courier New', Courier, monospace; /* Make text bold */
+}
+
+.b{
+    color: red;
+}
+.v{
+    color:green;
 }
