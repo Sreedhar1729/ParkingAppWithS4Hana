@@ -941,6 +941,9 @@ sap.ui.define([
                     // Get values to update
                     var oldSlotValue = oInput.getValue(); // Get Text value from Input
                     var newSlotKey = oComboBox.getSelectedKey(); // Get ComboBox selected key
+                    if(!newSlotKey){
+                        MessageBox.error("SLot value should be filled")
+                    }else{
                     var oID = oObject.Slotno; // Assuming id is directly from the selected object
                     var that = this;
 
@@ -980,6 +983,7 @@ sap.ui.define([
                         }
                     });
                 }
+            }
             },
 
             // Filter ComboBox items based on the service type
@@ -1450,6 +1454,9 @@ sap.ui.define([
                     // Get values to update
                     var oldSlotValue = oInput.getValue(); // Get Text value from Input
                     var newSlotKey = oComboBox.getSelectedKey(); // Get ComboBox selected key
+                    if(!newSlotKey){
+                        MessageBox.error("SLot value should be filled")
+                    }else{
                     var oID = oObject.Reserveno; // Assuming id is directly
                     var that = this;
                     // Update the Reserved Slots
@@ -1488,6 +1495,7 @@ sap.ui.define([
                         }
                     });
                 }
+            }
             },
 
             // Filter ComboBox items based on the service type
@@ -2041,7 +2049,10 @@ sap.ui.define([
                         var obj = oSelect.getBindingContext().getObject();
                         var t = obj.Reserveno;
                         var oc = oSelect.getCells()[6].getItems()[1].getSelectedKey(); // Get selected key from ComboBox
-
+                        if(!oc){
+                            MessageBox.error("SLot value should be filled")
+                        }
+                        else{
                         var aCells = oSelect.getCells();
                         var oText = aCells[6].getItems()[0];
                         var oComboBox = aCells[6].getItems()[1];
@@ -2073,10 +2084,12 @@ sap.ui.define([
                             }
                         });
                     }
+                }
                 } else {
                     // Show error message if no row is selected
                     sap.m.MessageBox.error("Please select at least one row for assigning a slot!");
                 }
+            
             },
 
             // Filter ComboBox items based on some criteria
